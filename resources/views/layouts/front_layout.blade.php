@@ -271,10 +271,23 @@
                                     المفضلة
                                     <img src="{{ asset('web/img/user.png') }}" alt="" style="margin-left: 10px;">
                                 </a>
-                                <a href="#">
-                                    تسجيل خروج
-                                    <img src="{{ asset('web/img/user.png') }}" alt="" style="margin-left: 10px;">
-                                </a>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" style="text-decoration: none;
+                                            color: #0D55B1;
+                                            text-align: center;
+                                            padding: 15px 15px;
+                                            font-size: 14px;
+                                            font-weight: 700;
+                                            display: flex;
+                                            width: 260px;
+                                            justify-content: end;
+                                            border: 0;
+                                    ">
+                                        تسجيل خروج
+                                        <img src="{{ asset('web/img/user.png') }}" alt="" style="margin-left: 10px;">
+                                    </button>
+                                </form>
                             </div>
                         </li>
 
