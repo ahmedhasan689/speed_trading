@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\UserRequest;
 use App\Models\City;
+use Spatie\Permission\Models\Role;
 use App\Models\Nationality;
 use App\Models\Order;
 use App\Models\User;

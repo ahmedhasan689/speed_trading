@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Web\AccountController;
 use App\Http\Controllers\Web\HomeController;
-use App\Http\Controllers\Web\SocialLoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return redirect( route('dashboard.home') );
-//});
+Route::get('/', function () {
+    return redirect(route('dashboard.home'));
+});
 //
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
@@ -27,10 +27,7 @@ require __DIR__.'/auth.php';
 Route::patch('/fcm-token', [\App\Http\Controllers\HomeController::class, 'updateToken'])->name('fcmToken');
 
 
-Route::name('dashboard.')->namespace('App\Http\Controllers\Dashboard')
-    ->middleware(['language', 'auth'])
-    ->prefix('dashboard')
-    ->group(function () {
+Route::name('dashboard.')->namespace('App\Http\Controllers\Dashboard')->middleware(['language', 'auth'])->prefix('dashboard')->group(function () {
 
     Route::get('/', function () {
         return redirect(route('dashboard.home'));
@@ -172,6 +169,8 @@ Route::name('dashboard.')->namespace('App\Http\Controllers\Dashboard')
 
 
     Route::resource('faqs', 'FAQController');
+
+
 });
 
 Route::namespace('\App\Http\Controllers\Web')->group(function () {
@@ -180,18 +179,27 @@ Route::namespace('\App\Http\Controllers\Web')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/page', [HomeController::class, 'page'])->name('page');
 
-    // Social Login
-    Route::controller(SocialLoginController::class)
-        ->as('social_login.')
-        ->group(function () {
+//    // Social Login
+//    Route::controller(SocialLoginController::class)
+//        ->as('social_login.')
+//        ->group(function () {
+//
+//            // Facebook
+//            Route::get('/login/facebook', 'facebook')->name('facebook');
+//            Route::get('/login/facebook/callback', 'facebookCallback')->name('facebook.callback');
+//
+//            // Google
+//            Route::get('/login/google', 'google')->name('google');
+//            Route::get('/login/google/callback', 'googleCallback')->name('google.callback');
+//        });
 
-            // Facebook
-            Route::get('/login/facebook', 'facebook')->name('facebook');
-            Route::get('/login/facebook/callback', 'facebookCallback')->name('facebook.callback');
-
-            // Google
-            Route::get('/login/google', 'google')->name('google');
-            Route::get('/login/google/callback', 'googleCallback')->name('google.callback');
+    Route::controller(AccountController::class)
+        ->prefix('account')
+        ->as('account.')
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::put('/', 'update')->name('update');
+            Route::put('/reset-password', 'resetPassword')->name('resetPassword');
         });
-
 });
+

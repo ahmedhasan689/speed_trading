@@ -317,12 +317,12 @@
                                 <div class="outside-div">
                                     <div class="row">
                                         <div class="col-6 social-icons">
-                                            <a href="{{ route('social_login.facebook') }}" class="btn btn-light">
+                                            <button class="btn btn-light">
                                                 <img src="{{ asset('web/img/social_facebook.png') }}">
-                                            </a>
-                                            <a href="{{ route('social_login.google') }}" class="btn btn-light">
+                                            </button>
+                                            <button class="btn btn-light">
                                                 <img src="{{ asset('web/img/social_google.png') }}">
-                                            </a>
+                                            </button>
                                         </div>
                                         <div class="col-6">
                                             <span>
