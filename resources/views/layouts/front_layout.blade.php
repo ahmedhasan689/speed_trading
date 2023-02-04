@@ -309,7 +309,7 @@
                         </li>
 
                         <li>
-                            <a href="aboutCompany.html">عن الشركة</a>
+                            <a href="{{ route('about-company') }}">عن الشركة</a>
                         </li>
 
                         <li>

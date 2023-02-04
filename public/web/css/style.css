@@ -842,7 +842,7 @@ footer .app-images button {
 
 .group img {
     position: absolute;
-    right: 10px;
+    right: 40px;
     top: 12px;
 }
 
@@ -1425,5 +1425,17 @@ footer{
     .solutions .col-8 {
         display: block;
         height: 1250px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .my-points .col-8 .col-3:not(:first-child) {
+        display: none !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .my-points .col-8 .col-3:not(:first-child) {
+        display: none !important;
     }
 }

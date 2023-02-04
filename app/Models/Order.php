@@ -36,7 +36,9 @@ class Order extends Model
 
     public function provider()
     {
-        return $this->belongsTo(User::class,'provider_id');
+        return $this->belongsTo(User::class,'provider_id')->withDefault([
+            'name' => 'Unknown Person'
+        ]);
     }
 
     public function details()
@@ -45,7 +47,7 @@ class Order extends Model
     }
     public function address()
     {
-        return $this->belongsTo(Address::class,'address_id');
+        return $this->belongsTo(Address::class,'address_id')->withDefault();
     }
     public function promocode()
     {

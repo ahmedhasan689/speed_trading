@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\Web\AccountController;
+use App\Http\Controllers\Web\CompanyController;
 use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\MyFavoriteController;
+use App\Http\Controllers\Web\MyOrdersController;
+use App\Http\Controllers\Web\MyPointController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -201,5 +205,41 @@ Route::namespace('\App\Http\Controllers\Web')->group(function () {
             Route::put('/', 'update')->name('update');
             Route::put('/reset-password', 'resetPassword')->name('resetPassword');
         });
+
+    Route::controller(MyOrdersController::class)
+        ->prefix('my-order')
+        ->as('my_order')
+        ->group(function (){
+            Route::get('/', 'index')->name('index');
+            Route::get('/{id}', 'show')->name('show');
+        });
+
+    Route::controller(MyPointController::class)
+        ->prefix('my-points')
+        ->as('my_point')
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+        });
+
+    Route::controller(MyFavoriteController::class)
+        ->prefix('my-favorite')
+        ->as('my_favorite')
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+        });
+
+
+    Route::controller(CompanyController::class)
+        ->prefix('company')
+        ->as('company.')
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+        });
+
+
+    Route::get('/about-company', function() {
+        return view('web.pages.about-company');
+    })->name('about-company');
 });
 
