@@ -40,7 +40,7 @@ class ChatController extends Controller
         $message = ChatMessage::create([
             'channel_id'=>$request->channel_id,
             'message'=>$request->message,
-            'from_id'=>auth()->id(),
+            'from_id'=> auth()->id(),
             'to_id'=>ChatChannel::find($request->channel_id)->user_id
         ]);
         $admins = User::where('main_role','admin')->pluck('id')->toArray();

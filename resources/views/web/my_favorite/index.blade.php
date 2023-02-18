@@ -1,439 +1,62 @@
-@extends('layouts.front_layout')
-
-@section('title', 'My Favorite')
-
-@section('content')
-    <section class="title about-title order-details-title">
-        <div class="container">
-            <div class="about-title-content">
-                <span class="line"></span>
-                <div>
-                    <h2 style="color: #0D55B1;">
-                        المفضلة
-                    </h2>
-                    <p style=" margin-right: 20px; margin-top: 8px; color: #0B2242;">
-                        منتجاتك التي قمت بحفظها لفترة لاحقة أثناء تصفحك الموقع
-                    </p>
+<x-front-layout title="Favorites">
+    <section>
+        <div class="py-5 bg-light">
+            <div class="container">
+                <div class="page-title my-5 ms-5 position-relative">
+                    <h1 class="fw-bold">المفضلة</h1>
+                    <p>منتجاتك التي قمت بحفظها لفترة لاحقة أثناء تصفحك الموقع</p>
                 </div>
-            </div>
-    </section>
-
-    <section class="my-favorites">
-        <div class="container">
-            <div class="row row-height justify-content-around mb-4">
-                <div class="col-2 text-center">
-                    <div>
-                        <img src="{{ asset('web/img/product image.png') }}" alt="" width="109" height="96">
-                    </div>
-                    <div>
-                        <i class="fa fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-
-                    <div>
-                        <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        <span class="text">
-                            1TB HDD WD Purple
-                        </span>
-                        <div class="row">
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </a>
-                            </span>
-                            <span class="col-6">
-                                1.350
-                                <sup>L.E</sup>
-                            </span>
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-2 text-center">
-                    <div>
-                        <img src="{{ asset('web/img/product image.png') }}" alt="" width="109" height="96">
-                    </div>
-                    <div>
-                        <i class="fa fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-
-                    <div>
-                        <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        <span class="text">
-                            1TB HDD WD Purple
-                        </span>
-                        <div class="row">
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </a>
-                            </span>
-                            <span class="col-6">
-                                1.350
-                                <sup>L.E</sup>
-                            </span>
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-2 text-center">
-                    <div>
-                        <img src="{{ asset('web/img/product image.png') }}" alt="" width="109" height="96">
-                    </div>
-                    <div>
-                        <i class="fa fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-
-                    <div>
-                        <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        <span class="text">
-                            1TB HDD WD Purple
-                        </span>
-                        <div class="row">
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </a>
-                            </span>
-                            <span class="col-6">
-                                1.350
-                                <sup>L.E</sup>
-                            </span>
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-2 text-center">
-                    <div>
-                        <img src="{{ asset('web/img/product image.png') }}" alt="" width="109" height="96">
-                    </div>
-                    <div>
-                        <i class="fa fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-
-                    <div>
-                        <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        <span class="text">
-                            1TB HDD WD Purple
-                        </span>
-                        <div class="row">
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </a>
-                            </span>
-                            <span class="col-6">
-                                1.350
-                                <sup>L.E</sup>
-                            </span>
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-2 text-center">
-                    <div>
-                        <img src="{{ asset('web/img/product image.png') }}" alt="" width="109" height="96">
-                    </div>
-                    <div>
-                        <i class="fa fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-
-                    <div>
-                        <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        <span class="text">
-                            1TB HDD WD Purple
-                        </span>
-                        <div class="row">
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </a>
-                            </span>
-                            <span class="col-6">
-                                1.350
-                                <sup>L.E</sup>
-                            </span>
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-2 text-center">
-                    <div>
-                        <img src="{{ asset('web/img/product image.png') }}" alt="" width="109" height="96">
-                    </div>
-                    <div>
-                        <i class="fa fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-
-                    <div>
-                        <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        <span class="text">
-                            1TB HDD WD Purple
-                        </span>
-                        <div class="row">
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </a>
-                            </span>
-                            <span class="col-6">
-                                1.350
-                                <sup>L.E</sup>
-                            </span>
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="row row-height justify-content-around">
-                <div class="col-2 text-center">
-                    <div>
-                        <img src="{{ asset('web/img/product image.png') }}" alt="" width="109" height="96">
-                    </div>
-                    <div>
-                        <i class="fa fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-
-                    <div>
-                        <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        <span class="text">
-                            1TB HDD WD Purple
-                        </span>
-                        <div class="row">
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </a>
-                            </span>
-                            <span class="col-6">
-                                1.350
-                                <sup>L.E</sup>
-                            </span>
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-2 text-center">
-                    <div>
-                        <img src="{{ asset('web/img/product image.png') }}" alt="" width="109" height="96">
-                    </div>
-                    <div>
-                        <i class="fa fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-
-                    <div>
-                        <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        <span class="text">
-                            1TB HDD WD Purple
-                        </span>
-                        <div class="row">
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </a>
-                            </span>
-                            <span class="col-6">
-                                1.350
-                                <sup>L.E</sup>
-                            </span>
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-2 text-center">
-                    <div>
-                        <img src="{{ asset('web/img/product image.png') }}" alt="" width="109" height="96">
-                    </div>
-                    <div>
-                        <i class="fa fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-
-                    <div>
-                        <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        <span class="text">
-                            1TB HDD WD Purple
-                        </span>
-                        <div class="row">
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </a>
-                            </span>
-                            <span class="col-6">
-                                1.350
-                                <sup>L.E</sup>
-                            </span>
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-2 text-center">
-                    <div>
-                        <img src="{{ asset('web/img/product image.png') }}" alt="" width="109" height="96">
-                    </div>
-                    <div>
-                        <i class="fa fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-
-                    <div>
-                        <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        <span class="text">
-                            1TB HDD WD Purple
-                        </span>
-                        <div class="row">
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </a>
-                            </span>
-                            <span class="col-6">
-                                1.350
-                                <sup>L.E</sup>
-                            </span>
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-2 text-center">
-                    <div>
-                        <img src="{{ asset('web/img/product image.png') }}" alt="" width="109" height="96">
-                    </div>
-                    <div>
-                        <i class="fa fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-
-                    <div>
-                        <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        <span class="text">
-                            1TB HDD WD Purple
-                        </span>
-                        <div class="row">
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </a>
-                            </span>
-                            <span class="col-6">
-                                1.350
-                                <sup>L.E</sup>
-                            </span>
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-2 text-center">
-                    <div>
-                        <img src="{{ asset('web/img/product image.png') }}" alt="" width="109" height="96">
-                    </div>
-                    <div>
-                        <i class="fa fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-
-                    <div>
-                        <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        <span class="text">
-                            1TB HDD WD Purple
-                        </span>
-                        <div class="row">
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </a>
-                            </span>
-                            <span class="col-6">
-                                1.350
-                                <sup>L.E</sup>
-                            </span>
-                            <span class="col-3">
-                                <a href="#">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
         </div>
-
     </section>
-@endsection
+
+    <section class="py-4 mb-5 position-relative">
+        <div class="bg-light position-absolute top-0 start-0 end-0" style="height: 150px;"></div>
+        <div class="container">
+            <div class="row items-card">
+                @include('web.my_favorite.items-card')
+            </div>
+        </div>
+    </section>
+
+    @push('js')
+        <script>
+            $(document).on('click', '.btn-like', function(e) {
+                e.preventDefault();
+
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: "{{ route('my_favorite.delete') }}",
+                    type: "GET",
+                    data: {
+                        id: id,
+                    },
+                    success: function(data) {
+                        Swal.fire({
+                            title: 'تم',
+                            text: 'لقد تم إزالتها بنجاح',
+                            icon: "success",
+                            buttonsStyling: false,
+                            confirmButtonText: 'إغلاق',
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+
+                        $.ajax({
+                            url: "{{ route('my_favorite.index') }}",
+                        }).done(function (data) {
+                            $(".items-card").html(data);
+                        });
+                    },
+                    error: function(data) {
+                        console.log(data)
+                    }
+                })
+
+
+            });
+        </script>
+    @endpush
+</x-front-layout>

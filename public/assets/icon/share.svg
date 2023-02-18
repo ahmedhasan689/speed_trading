@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <g id="share" transform="translate(-970 -831)">
+    <rect id="container" width="48" height="48" rx="12" transform="translate(970 831)" fill="#eceeef"/>
+    <g id="share-2" data-name="share" transform="translate(982 843)">
+      <g id="Group_15" data-name="Group 15">
+        <rect id="Rectangle_21" data-name="Rectangle 21" width="24" height="24" fill="none"/>
+      </g>
+      <g id="Group_17" data-name="Group 17">
+        <g id="Group_16" data-name="Group 16">
+          <path id="Path_171" data-name="Path 171" d="M18,8H15v2h3V21H6V10H9V8H6a1.993,1.993,0,0,0-2,2V21a2,2,0,0,0,2,2H18a2.006,2.006,0,0,0,2-2V10A2,2,0,0,0,18,8Z" fill="#0d55b1"/>
+          <path id="Path_172" data-name="Path 172" d="M11,16h2V5h3L12,1,8,5h3Z" fill="#0d55b1"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,5 @@
+<svg id="notifications" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <path id="Path_144" data-name="Path 144" d="M0,0H32V32H0Z" fill="none"/>
+  <path id="Path_145" data-name="Path 145" d="M14.5,6.5C10.455,6.5,8,9.537,8,13.265v9.02H21.009v-9.02C21.009,9.537,18.554,6.5,14.5,6.5Z" transform="translate(1.495 1.301)" fill="#0b2242" opacity="0.3"/>
+  <path id="Path_146" data-name="Path 146" d="M16,30a2.923,2.923,0,0,0,3-2.821H13A2.923,2.923,0,0,0,16,30Zm9-8.462V14.487c0-4.329-2.445-7.954-6.75-8.913V4.615a2.254,2.254,0,0,0-4.5,0v.959C9.46,6.533,7,10.144,7,14.487v7.051L4,24.359v1.41H28v-1.41Zm-3,1.41H10V14.487c0-3.5,2.265-6.346,6-6.346s6,2.849,6,6.346Z" transform="translate(0 0)" fill="#0b2242"/>
+</svg>

@@ -29,9 +29,6 @@ class CartController extends Controller
         $cart = Cart::where('user_id',Auth::id())->get();
 
 
-
-
-
         return $this->okApiResponse(ItemCartResource::collection($cart),__('Cart'));
 
     }

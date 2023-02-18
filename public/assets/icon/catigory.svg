@@ -1,0 +1,11 @@
+<svg id="more" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <rect id="Rectangle_16" data-name="Rectangle 16" width="40" height="40" fill="none"/>
+  <rect id="Rectangle_17" data-name="Rectangle 17" width="4" height="4" transform="translate(13 13)" fill="#0b2242" opacity="0.3"/>
+  <rect id="Rectangle_18" data-name="Rectangle 18" width="4" height="4" transform="translate(13 23)" fill="#0b2242" opacity="0.3"/>
+  <rect id="Rectangle_19" data-name="Rectangle 19" width="4" height="4" transform="translate(23 23)" fill="#0b2242" opacity="0.3"/>
+  <rect id="Rectangle_20" data-name="Rectangle 20" width="4" height="4" transform="translate(23 13)" fill="#0b2242" opacity="0.3"/>
+  <path id="Path_162" data-name="Path 162" d="M3,21h8V13H3Zm2-6H9v4H5Z" transform="translate(8 8)" fill="#0b2242"/>
+  <path id="Path_163" data-name="Path 163" d="M3,11h8V3H3ZM5,5H9V9H5Z" transform="translate(8 8)" fill="#0b2242"/>
+  <path id="Path_164" data-name="Path 164" d="M13,21h8V13H13Zm2-6h4v4H15Z" transform="translate(8 8)" fill="#0b2242"/>
+  <path id="Path_165" data-name="Path 165" d="M13,3v8h8V3Zm6,6H15V5h4Z" transform="translate(8 8)" fill="#0b2242"/>
+</svg>

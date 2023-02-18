@@ -15,11 +15,13 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
+            <input type="hidden" name="type_admin" value="admin">
+
             <!-- Email Address -->
             <div>
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="mobile" :value="__('Mobile')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-input id="mobile" class="block mt-1 w-full" type="text" name="mobile" :value="old('mobile')" required autofocus />
             </div>
 
             <!-- Password -->

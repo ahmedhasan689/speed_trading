@@ -50,7 +50,7 @@
 </div>
 <div class="form-group py-1 col-md-12">
     <label for="item_id"> {{__('Item ')}}  {!! label_required() !!}</label>
-    {{Form::select('item_id',\App\Models\Item::all()->pluck('name','id') ,null,['placeholder'=>__('Select category'),"required",'class'=>'form-control mb-2 select2','id'=>'item_id',disable_on_show()])}}
+    {{Form::select('item_id[]',\App\Models\Item::all()->pluck('name','id') ,null,['placeholder'=>__('Select category'),"required","multiple",'class'=>'form-control mb-2 select2','id'=>'item_id',disable_on_show()])}}
     {{input_error($errors,'item_id')}}
 </div>
 

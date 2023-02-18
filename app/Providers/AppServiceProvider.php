@@ -9,6 +9,7 @@ use App\Models\Room;
 use App\Models\Solution;
 use App\Models\SpeedTraining;
 use App\Models\Training;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -22,9 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//        $this->app->bind('path.public', function() {
-//          return realpath(base_path().'/public_html');
-//        });
+
+
     }
 
     /**
@@ -39,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFour();
 
         Relation::enforceMorphMap([
+            'user'=>User::class,
             'event'=>Event::class,
             'item'=>Item::class,
             'job'=>Job::class,

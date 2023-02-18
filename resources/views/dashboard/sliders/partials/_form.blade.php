@@ -35,13 +35,13 @@
 <div class="form-group py-1 col-md-12 target">
     <label for="target_type"> {{__('Target type')}}  {!! label_required() !!}</label>
     {{Form::select('target_type',[
-'event'=>__('Event'),
-'item'=>__('Item'),
-'job'=>__('Job'),
-'room'=>__('Room'),
-'solution'=>__('Solution'),
-'speed_training'=>'Speed training',
-'training'=>__('Training')
+'events'=>__('Event'),
+'items'=>__('Item'),
+'jobs'=>__('Job'),
+'rooms'=>__('Room'),
+'solutions'=>__('Solution'),
+'speed_trainings'=>'Speed training',
+'trainings'=>__('Training')
 ] ,null,['class'=>'form-control mb-2','id'=>'target_type','required',disable_on_show()])}}
     {{input_error($errors,'target_type')}}
 </div>

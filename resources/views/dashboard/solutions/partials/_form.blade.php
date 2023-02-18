@@ -33,8 +33,8 @@
 
 <div class="form-group py-1 col-md-12">
     <label for="items"> {{__('Item ')}}  {!! label_required() !!}</label>
-    {{Form::select('items[]',\App\Models\Item::all()->pluck('name','id') ,null,["required",'class'=>'form-control mb-2 select2','id'=>'item_id',disable_on_show(),'multiple'])}}
-    {{input_error($errors,'items')}}
+    {{ Form::select('item_id[]',\App\Models\Item::all()->pluck('name','id'),null,["required",'class'=>'form-control mb-2 select2','id'=>'item_id',disable_on_show(),'multiple'])}}
+    {{input_error($errors,'item_id')}}
 </div>
 
 @section('footer')

@@ -1,0 +1,6 @@
+<svg id="cart_nav" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <rect id="container" width="32" height="32" rx="6" fill="none"/>
+  <path id="Path_150" data-name="Path 150" d="M9.381,24.4a2.8,2.8,0,1,0,2.794,2.8A2.793,2.793,0,0,0,9.381,24.4Zm13.968,0a2.8,2.8,0,1,0,2.794,2.8A2.793,2.793,0,0,0,23.349,24.4Zm-12.432-7H21.324a2.779,2.779,0,0,0,2.444-1.442L29.16,6.144,26.716,4.8l-5.392,9.8H11.518L5.568,2H1V4.8H3.794L8.822,15.426,6.937,18.842A2.8,2.8,0,0,0,9.381,23H26.143V20.2H9.381Z" transform="translate(0 0)" fill="#0b2242"/>
+  <circle id="Ellipse_1" data-name="Ellipse 1" cx="6" cy="6" r="6" transform="translate(10.667 1)" fill="#0b2242"/>
+  <text id="_0" data-name="0" transform="translate(16.765 10.5)" fill="#b2bbbf" font-size="10" font-family="Almarai-Regular, Almarai"><tspan x="-2" y="0">0</tspan></text>
+</svg>

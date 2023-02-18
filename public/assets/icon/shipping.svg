@@ -1,0 +1,5 @@
+<svg id="shipping" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path id="Path_266" data-name="Path 266" d="M0,0H24V24H0Z" fill="none"/>
+  <path id="Path_267" data-name="Path 267" d="M3,15h.78a2.964,2.964,0,0,1,4.44,0H15V6H3Z" fill="#0b2242" opacity="0.3"/>
+  <path id="Path_268" data-name="Path 268" d="M17,8V4H3A2.006,2.006,0,0,0,1,6V17H3a3,3,0,0,0,6,0h6a3,3,0,0,0,6,0h2V12L20,8ZM6,18a1,1,0,1,1,1-1A1,1,0,0,1,6,18Zm9-3H8.22a2.964,2.964,0,0,0-4.44,0H3V6H15Zm3,3a1,1,0,1,1,1-1A1,1,0,0,1,18,18Zm-1-6V9.5h2.5L21.46,12Z" fill="#0b2242"/>
+</svg>

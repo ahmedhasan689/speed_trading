@@ -1,1104 +1,406 @@
-@extends('layouts.front_layout')
-
-@section('title', 'Home')
-
-@section('content')
-
-    <header class="mb-4">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto col-md-2 mb-2 mb-lg-0 first-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">
-                                    <img src="{{ asset('web/img/cart_nav.png') }}" alt=""
-                                         style="width: 25px; height: 25px;">
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <img src="{{ asset('web/img/favorite.png') }}" alt=""
-                                         style="width: 25px; height: 25px;">
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    <img src="{{ asset('web/img/notifications.png') }}" alt=""
-                                         style="width: 25px; height: 25px;">
-                                </a>
-                            </li>
-                            <div class="vl"></div>
-                            <li class="nav-item">
-                                <a class="nav-link" style="width: max-content;">
-                                    <img src="{{ asset('web/img/phone.png') }}" alt=""
-                                         style="width: 25px; height: 25px;">
-                                    <span style="color: #0D55B1; font-weight: bold;">16454</span>
-                                </a>
-                            </li>
-                        </ul>
-
-                        <form class="d-flex col-md-6 search-input" role="search">
-                            <input class="form-control me-2 search-text" type="search" placeholder="أدخل"
-                                   aria-label="Search">
-                            <img class="search-icon" src="{{ asset('web/img/search.png') }}" alt="">
-                        </form>
-
-                        <div class="col-md-3 empty-space"></div>
-                    </div>
-                </div>
-            </nav>
-            <hr>
-            <nav class="navbar navbar-expand-lg ">
-                <ul class="d-flex second-nav align-content-center justify-content-evenly">
-                    <li>
-                        <a href="#" id="more-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ asset('web/img/more.png') }}" alt="">
+<x-front-layout title="Home">
+    <section class="hero mt-3 mt-lg-5">
+        <div dir="rtl" class="swiper heroSwiper">
+            <div class="swiper-wrapper">
+                @foreach($sliders as $slider)
+                    @if( $slider->type == 'image' )
+                        <a href="{{ url($slider->target_type . '/' . $slider->target_id) }}" class="swiper-slide">
+                            <img src="{{ asset('/') . $slider->image }}" alt="">
                         </a>
-                        <ul class="dropdown-menu more-dropdown" aria-labelledby="more-dropdown">
-                            <h6 class="text-center">
-                                حسابي
-                            </h6>
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    دخول
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    اشتراك جديد
-                                    <img src="{{ asset('web/img/join.png') }}" alt="">
-                                </a>
-                            </li>
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="subscripe.html">
-                                    اشتراك موزع
-                                    <img src="{{ asset('web/') }}img/distributers.png" alt="">
-                                </a>
-                            </li>
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="my-favorite.html">
-                                    المفضلة
-                                    <img src="{{ asset('web/') }}img/favorite.png" alt="">
-                                </a>
-                            </li>
-
-                            <h6 class="text-center">
-                                الاقسام
-                            </h6>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    كاميرات
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    شبكات
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    إنتركوم
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    وحدات تسجيل
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    إكسسوارات
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <h6 class="text-center">
-                                الماركات
-                            </h6>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    HIKVISION
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    EZVIZ
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    AVTECH
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    ExTell
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    Wastern
-                                    <img src="{{ asset('web/') }}img/WesternDigital.png" alt="">
-                                </a>
-                            </li>
-
-                            <h6 class="text-center">
-                                خدماتنا
-                            </h6>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    فعاليات
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    حلول
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    غرف
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    وظائف
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    تدريب
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    Speed4Training
-                                    <img src="" alt="">
-                                </a>
-                            </li>
-
-                            <h6 class="text-center">
-                                الدعم
-                            </h6>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    الأسئلة الشائعة
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    الدعم الفني
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    تواصل معنا
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    الشروط والأحكام
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-
-                            <li class="dropdown-list">
-                                <a class="dropdown-item" href="#">
-                                    سياسة
-                                    <img src="{{ asset('web/img/login.png') }}" alt="">
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="" data-bs-toggle="modal" data-bs-target="#loginModal">تسجيل الدخول</a>
-                    </li>
-                    <li>
-                        <a href="" data-bs-toggle="modal" data-bs-target="#registerModal">تسجيل جديد</a>
-                    </li>
-                    <li>
-                        <a href="">إشتراك موزع</a>
-                    </li>
-
-                    <li>
-                        <a href="">الأقسام</a>
-                    </li>
-
-                    <li>
-                        <a href="">الماركات</a>
-                    </li>
-
-                    <li>
-                        <a href="">خدمات سبيد</a>
-                    </li>
-
-                    <li>
-                        <a href="">الدعم</a>
-                    </li>
-
-                    <li>
-                        <a href="aboutCompany.html">عن الشركة</a>
-                    </li>
-
-                    <li>
-                        <a href="">English</a>
-                    </li>
-
-                    <li>
-                        <a href="">Test</a>
-                    </li>
-
-                </ul>
-            </nav>
-
-            <a class="navbar-brand" href="#">
-                <img class="logo" src="{{ asset('web/img/logo.png') }}" alt="">
-            </a>
-
-
-            <!-- Modal -->
-            <div class="modal fade" style="z-index: 1;" id="loginModal" tabindex="-1" aria-labelledby="loginModal"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <button type="button" class="btn-close btn-close-white" aria-label="Close"></button>
-                        <div class="modal-body">
-                            <h5 class="text-center">
-                                أدخل بياناتك
-                            </h5>
-                            <span class="d-flex justify-content-center" style="margin-top: -15px;">
-                                أوادخل رقم الهاتف وكلمة المرور
-                            </span>
-                            <form action="{{ route('login') }}" method="POST">
-                                @csrf
-
-                                <div class="alert text-danger text-center d-none login-errors"></div>
-
-                                <div class="outside-div">
-                                    <div class="row">
-                                        <div class="col-6 social-icons">
-                                            <button class="btn btn-light">
-                                                <img src="{{ asset('web/img/social_facebook.png') }}">
-                                            </button>
-                                            <button class="btn btn-light">
-                                                <img src="{{ asset('web/img/social_google.png') }}">
-                                            </button>
-                                        </div>
-                                        <div class="col-6">
-                                            <span>
-                                                ادخل بإحدى بمنصات التواصل الاجتماعي
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="group">
-                                    <img src="{{ asset('web/img/phone2.png') }}" height="24" width="24">
-                                    <input id="loginMobile" class="form-control" name="mobile" type="text"
-                                           placeholder="رقم الهاتف"/>
-                                    <label id="myInput-label">رقم الهاتف</label>
-                                </div>
-
-                                <div class="group">
-                                    <img src="{{ asset('web/img/password.png') }}" height="24" width="24">
-                                    <input id="loginPassword" class="form-control" name="password" type="password"
-                                           placeholder="كلمة المرور"/>
-                                    <label id="myInput-label">كلمة المرور</label>
-                                </div>
-
-
-                                <div class="group">
-                                    <button type="submit" class="btn loginBtn">
-                                        <img src="{{ asset('web/img/arrow_next.png') }}" alt="">
-                                        دخول
-                                    </button>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal -->
-            <div class="modal fade" style="z-index: 1;" id="registerModal" tabindex="-1" aria-labelledby="registerModal"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-
-                        <button type="button" class="btn-close btn-close-white" aria-label="Close"></button>
-                        <div class="modal-body">
-                            <h5 class="text-center">
-                                أدخل بياناتك
-                            </h5>
-                            <span class="d-flex justify-content-center" style="margin-top: -15px;">
-                                أوادخل بياناتك للإشتراك مع سبيد
-                            </span>
-                            <form action="{{ route('register') }}" method="POST">
-                                @csrf
-                                <div class="alert text-danger text-center d-none register-errors"></div>
-
-                                <div class="outside-div">
-                                    <div class="row">
-                                        <div class="col-6 social-icons">
-                                            <button class="btn btn-light">
-                                                <img src="{{ asset('web/img/social_facebook.png') }}">
-                                            </button>
-                                            <button class="btn btn-light">
-                                                <img src="{{ asset('web/img/social_google.png') }}">
-                                            </button>
-                                        </div>
-                                        <div class="col-6">
-                                            <span>
-                                                ادخل بإحدى بمنصات التواصل الاجتماعي
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="group">
-                                    <img src="{{ asset('web/img/phone2.png') }}" height="24" width="24">
-                                    <input id="registerName" class="form-control" name="name" type="text"
-                                           placeholder="الاسم"/>
-                                    <label id="myInput-label">الاسم</label>
-                                </div>
-
-                                <div class="group">
-                                    <img src="{{ asset('web/img/phone2.png') }}" height="24" width="24">
-                                    <input id="registerMobile" name="mobile" class="form-control" type="text"
-                                           placeholder="رقم الهاتف"/>
-                                    <label id="myInput-label">رقم الهاتف</label>
-                                </div>
-
-                                <div class="group">
-                                    <img src="{{ asset('web/img/phone2.png') }}" height="24" width="24">
-                                    <input id="registerEmail" class="form-control" name="email" type="text"
-                                           placeholder="البريد الإلكتروني"/>
-                                    <label id="myInput-label">البريد الإلكتروني</label>
-                                </div>
-
-                                <div class="group">
-                                    <img src="{{ asset('web/img/password.png') }}" height="24" width="24">
-                                    <input id="registerPassword" class="form-control" name="password" type="text"
-                                           placeholder="كلمة المرور"/>
-                                    <label id="myInput-label">كلمة المرور</label>
-                                </div>
-
-
-                                <div class="group">
-                                    <button class="btn registerBtn">
-                                        <img src="{{ asset('web/img/arrow_next.png') }}" alt="">
-                                        إشتراك
-                                    </button>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section class="mb-4">
-        <div class="slider">
-            <div id="main-slider" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item carousel-one active">
-                    </div>
-                    <div class="carousel-item carousel-two">
-                    </div>
-                    <div class="carousel-item carousel-three">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-2">
-
-            <div class="offset-md-5 col-md-2 offset-md-5 d-flex justify-content-center">
-
-                <button class="carousel-control-prev" type="button" data-bs-target="#main-slider"
-                        style="background-color: #ECEEEF; position:static; border-radius: 12px; width: 48px; height: 48px;"
-                        data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" style="color: #0D55B1;" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#main-slider" data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#main-slider" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#main-slider" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
-                </div>
-
-                <button class="carousel-control-next" type="button"
-                        style="background-color: #ECEEEF; position:static; border-radius: 12px; width: 48px; height: 48px;"
-                        data-bs-target="#main-slider" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" style="color: #0D55B1;" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-
-            </div>
-
-            <div class="col-4 offset-4">
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="companies mb-4">
-        <div class="container">
-            <div class="row">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <img src="{{ asset('web/img/NoPath - Copy (11).png') }}" alt="">
+                    @else
+                        <a href="{{ url($slider->image) }}" class="swiper-slide">
+                            <iframe src="{{ url($slider->image) }}" style="width: 100%; height: 445px"></iframe>
                         </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="{{ asset('web/img/EZVIZ.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="{{ asset('web/img/AVTECH.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="{{ asset('web/img/ExTell.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li><a href="#"><img src="{{ asset('web/img/WesternDigital.png') }}" alt=""></a></li>
-                </ul>
+                    @endif
+                @endforeach
+            </div>
+            <div class="d-flex align-items-center justify-content-center gap-3 my-3">
+                <button class="btn btn-light rounded-3 hero-next">&#129130;</button>
+                <div class="swiper-pagination"></div>
+                <button class="btn btn-light rounded-3 hero-prev">&#129128;</button>
             </div>
         </div>
     </section>
 
-    <section class="offers">
+    <section class="companies mt-5">
+        <div style="background: #E6EDF7; padding: 2rem 10px;" class="container rounded-4">
+            <div class="d-flex justify-content-center align-items-center gap-5 flex-column flex-lg-row">
+                @foreach( $brands as $brand )
+                    <a href="{{ route('brand.show', ['id' => $brand->id]) }}">
+                        <img src="{{ asset('/') . $brand->image }}" height="20" alt="">
+                    </a>
+                @endforeach
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="offer-product-card mt-6">
         <div class="container">
-            <div class="row">
-                <div class="col-2 advertise-section">
-                    <div class="advertise-buttons">
-                        <button class="btn btn-light">
-                            <i class="fa-solid fa-circle-info"></i>
+            <div class="d-flex flex-column flex-lg-row gap-3">
+                <div class="p-2 ads bg-light d-flex align-items-center justify-content-center">advertisement</div>
+                <div class="p-2 flex-grow-1">
+                    <p class="main-title position-relative fw-bold mx-auto mb-4">أحدث العروض</p>
+                    <div class="row items-card">
+
+                        @include('web.home.items_card')
+
+                    </div>
+                    <a href="{{ route('brand.show', ['id' => \App\Models\brand::first()->id ] ) }}" style="width: 250px" class="btn btn-light rounded-3 d-block text-center mt-4 mx-auto px-5 py-2">
+                        <span class="me-auto">تصفح كل العروض</span>
+                        <span class="arrow ms-2">&#129128;</span>
+                    </a>
+                </div>
+                <div class="p-2 ads bg-light d-flex align-items-center justify-content-center">advertisement</div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="mt-6 middle-sec">
+        <div class="container">
+            <div class="row g-3">
+                <div class="col-lg-8">
+                    <div class="rounded-4 py-5 px-4 right">
+                        <div class="sec-title mb-5 text-center">
+                            <h3>الحلول المتكاملة من سبيد</h3>
+                            <span>نجاح عملائنا يلهمنا لتحقيق الإنجازات. تقدم سبيد حلول امنية متكاملة وفعّالة لمنشئات
+                                متعددة</span>
+                        </div>
+                        <div class="row">
+                            @foreach( $solutions as $solution )
+                                <a href="{{ route('solution.index') }}" style="color: #0B2242; text-decoration: none" class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                                    <div class="card shadow-sm">
+                                        <img src="{{ asset('/') . $solution->images()->first()->url }}" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h6 class="fw-bold text-center">
+                                                {{ $solution->getTranslation('title', app()->getLocale()) }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                        <a href="{{ route('solution.index') }}" style="width: 250px" class="btn btn-primary rounded-3 d-block text-center mt-4 mx-auto px-5 py-2">
+                            <span>عرض كل الفعاليات</span>
+                            <span class="arrow ms-2">&#129128;</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="rounded-4 py-5 px-4 left">
+                        <div class="sec-title mb-3 text-center">
+                            <h3>حمّل تطبيق سبيد</h3>
+                            <span>استخدم تطبيق سبيد فور تريدينج لطلب كل المنتجات المعروضة في أي وقت وأي مكان</span>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <a href="#">
+                                <img class="apple" src="{{ asset('assets/icon/app-store.svg') }}" alt="Download on the App Store">
+                            </a>
+                            <a href='#'>
+                                <img class="android" alt='Get it on Google Play' src='{{ asset('assets/icon/google-play.png') }}' />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="mt-6">
+        <div class="container">
+            <div class="d-flex flex-column flex-lg-row gap-3">
+                <div class="p-2 ads bg-light d-flex align-items-center justify-content-center">advertisement</div>
+                <div class="p-2 flex-grow-1">
+                    <p class="main-title position-relative fw-bold mx-auto mb-4">أحدث الفعاليات</p>
+                    <div class="row">
+                        @foreach( $events as $event )
+                            <a href="{{ route('event.show', ['id' => $event->id]) }}" style="text-decoration: none; color: #0B2242" class="col-lg-4 col-md-6">
+                                <div class="card mb-3">
+                                    <img src="{{ asset('/') . $event->images()->first()->url }}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            {{ $event->getTranslation('title', app()->getLocale()) }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+
+                    <a href="{{ route('event.index') }}" style="width: 250px" class="btn btn-light rounded-3 d-block text-center mt-4 mx-auto px-5 py-2">
+                        <span class="me-auto">عرض كل الفعاليات</span>
+                        <span class="arrow ms-2">&#129128;</span>
+                    </a>
+                </div>
+                <div class="p-2 ads bg-light d-flex align-items-center justify-content-center">advertisement</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 gap-4 bg-transparent">
+                <div class="modal-header border-0 rounded-4">
+                    <p class="modal-title">ادخل بإحدى بمنصات التواصل الاجتماعي</p>
+                    <div class="d-flex">
+                        <button class="btn btn-sm btn-light rounded-3">
+                            <img src="{{ asset('assets/icon/social_google.svg') }}">
                         </button>
-                        <button class="btn btn-light">
-                            <i class="fa-solid fa-xmark"></i>
+                        <button class="btn btn-sm btn-light rounded-3 ms-2">
+                            <img src="{{ asset('assets/icon/social_facebook.svg') }}">
                         </button>
                     </div>
                 </div>
-                <div class="col-8">
-                    <div class="row header-title">
-                        <h3 class="col-12">
-                            أحدث العروض
-                        </h3>
-                    </div>
-                    <div class="row">
-                        <div class="product-box">
-                            <div class="product-star">
-                                <span>4.5</span>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <img src="{{ asset('web/img/product image.png') }}" alt="">
-                            <div class="product-info">
-                                <img src="{{ asset('web/img/WesternDigital.png') }}" alt="">
-                                <span>
-                                    IDS-123123123
-                                </span>
-                            </div>
-                            <div class="product-icons">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-solid fa-cart-plus"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-8">
-                                        <span>
-                                            1.350
-                                            <sup>L.E</sup>
-                                        </span>
-                                    </div>
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="modal-body bg-white rounded-4 py-5">
+                    <p class="main-title position-relative fw-bold mx-auto mb-1">أدخل بياناتك</p>
+                    <p class="sub-title-form">أو أدخل رقم الهاتف وكلمة المرور</p>
+                    <form class="px-md-4 px-1">
+                        <div class="login-errors alert text-danger d-none text-center"></div>
+                        <div class="form-floating mb-3">
+                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                                 src="{{ asset('assets/icon/phone-2.svg') }}">
+                            <input type="text" class="form-control rounded-3 ps-5" id="loginMobile"
+                                   placeholder="رقم الهاتف">
+                            <label class="ps-5" for="loginMobile">رقم الهاتف</label>
                         </div>
-
-                        <div class="product-box">
-                            <div class="product-star">
-                                <span>4.5</span>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <img src="{{ asset('web/img/product image.png') }}" alt="">
-                            <div class="product-info">
-                                <img src="{{ asset('web/img/WesternDigital.png') }}" alt="">
-                                <span>
-                                    IDS-123123123
-                                </span>
-                            </div>
-                            <div class="product-icons">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-solid fa-cart-plus"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-8">
-                                        <span>
-                                            1.350
-                                            <sup>L.E</sup>
-                                        </span>
-                                    </div>
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="form-floating mb-3">
+                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                                 src="{{ asset('assets/icon/password.svg') }}">
+                            <input type="text" class="form-control rounded-3 ps-5" id="loginPassword"
+                                   placeholder="كلمة المرور">
+                            <label class="ps-5" for="loginPassword">كلمة المرور</label>
                         </div>
-
-                        <div class="product-box">
-                            <div class="product-star">
-                                <span>4.5</span>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <img src="{{ asset('web/img/product image.png') }}" alt="">
-                            <div class="product-info">
-                                <img src="{{ asset('web/img/WesternDigital.png') }}" alt="">
-                                <span>
-                                    IDS-123123123
-                                </span>
-                            </div>
-                            <div class="product-icons">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-solid fa-cart-plus"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-8">
-                                        <span>
-                                            1.350
-                                            <sup>L.E</sup>
-                                        </span>
-                                    </div>
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product-box">
-                            <div class="product-star">
-                                <span>4.5</span>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <img src="{{ asset('web/img/product image.png') }}" alt="">
-                            <div class="product-info">
-                                <img src="{{ asset('web/img/WesternDigital.png') }}" alt="">
-                                <span>
-                                    IDS-123123123
-                                </span>
-                            </div>
-                            <div class="product-icons">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-solid fa-cart-plus"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-8">
-                                        <span>
-                                            1.350
-                                            <sup>L.E</sup>
-                                        </span>
-                                    </div>
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="product-box">
-                            <div class="product-star">
-                                <span>4.5</span>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <img src="{{ asset('web/img/product image.png') }}" alt="">
-                            <div class="product-info">
-                                <img src="{{ asset('web/img/WesternDigital.png') }}" alt="">
-                                <span>
-                                    IDS-123123123
-                                </span>
-                            </div>
-                            <div class="product-icons">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-solid fa-cart-plus"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-8">
-                                        <span>
-                                            1.350
-                                            <sup>L.E</sup>
-                                        </span>
-                                    </div>
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product-box">
-                            <div class="product-star">
-                                <span>4.5</span>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <img src="{{ asset('web/img/product image.png') }}" alt="">
-                            <div class="product-info">
-                                <img src="{{ asset('web/img/WesternDigital.png') }}" alt="">
-                                <span>
-                                    IDS-123123123
-                                </span>
-                            </div>
-                            <div class="product-icons">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-solid fa-cart-plus"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-8">
-                                        <span>
-                                            1.350
-                                            <sup>L.E</sup>
-                                        </span>
-                                    </div>
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product-box">
-                            <div class="product-star">
-                                <span>4.5</span>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <img src="{{ asset('web/img/product image.png') }}" alt="">
-                            <div class="product-info">
-                                <img src="{{ asset('web/img/WesternDigital.png') }}" alt="">
-                                <span>
-                                    IDS-123123123
-                                </span>
-                            </div>
-                            <div class="product-icons">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-solid fa-cart-plus"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-8">
-                                        <span>
-                                            1.350
-                                            <sup>L.E</sup>
-                                        </span>
-                                    </div>
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product-box">
-                            <div class="product-star">
-                                <span>4.5</span>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <img src="{{ asset('web/img/product image.png') }}" alt="">
-                            <div class="product-info">
-                                <img src="{{ asset('web/img/WesternDigital.png') }}" alt="">
-                                <span>
-                                    IDS-123123123
-                                </span>
-                            </div>
-                            <div class="product-icons">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-solid fa-cart-plus"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-8">
-                                        <span>
-                                            1.350
-                                            <sup>L.E</sup>
-                                        </span>
-                                    </div>
-                                    <div class="col-2">
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12 offer-btn d-flex justify-content-center">
-                            <button class="btn btn-light">
-                                <i class="fa-solid fa-arrow-left"></i>
-                                أحدث العروض
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary py-2 rounded-3 w-100">
+                                <span class="me-auto loginBtn">دخول</span>
+                                <span class="arrow ms-2">&#129128;</span>
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
-                <div class="col-2 advertise-section">
-                    <div class="advertise-buttons">
-                        <button class="btn btn-light">
-                            <i class="fa-solid fa-circle-info"></i>
-                        </button>
-                        <button class="btn btn-light">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
+                <div class="modal-footer flex-column border-0">
+                    <p class="text-muted">في حالة عدم تذكر كلمة المرور بإمكانك</p>
+                    <a class="text-white" href="#">إعادة تعيين كلمة المرور</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="solutions">
-        <div class="container">
-            <div class="row">
-                <div class="col-4 mr-3">
-                    <div class="row">
-                        <h5 class="d-flex justify-content-center">
-                            حمّل تطبيق سبيد
-                        </h5>
-                        <span class="d-flex justify-content-center">
-                            استخدم تطبيق سبيد فور تريدينج لطلب كل المنتجات المعروضة في أي وقت وأي مكان
-                        </span>
+    <!-- Register Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 gap-4 bg-transparent">
+                <div class="modal-header border-0 rounded-4">
+                    <p class="modal-title">اشترك بإحدى بمنصات التواصل الاجتماعي</p>
+                    <div class="d-flex">
+                        <button class="btn btn-sm btn-light rounded-3">
+                            <img src="{{ asset('assets/icon/social_google.svg') }}">
+                        </button>
+                        <button class="btn btn-sm btn-light rounded-3 ms-2">
+                            <img src="{{ asset('assets/icon/social_facebook.svg') }}">
+                        </button>
                     </div>
-
-                    <div class="row justify-content-center" style="margin-top: 25px;">
-                        <div class="col-5">
-                            <img src="{{ asset('web/img/badge_appstore.png') }}" alt="">
-                        </div>
-                        <div class="col-5">
-                            <img src="{{ asset('web/img/badge_playstore.png') }}" width="171" height="57">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="hand-img">
-                            <img src="{{ asset('web/img/hand.png') }}" width="500" height="600">
-                            <!-- width: 536px;
-    height: 625px; -->
-                        </div>
-                    </div>
-
-
                 </div>
-                <div class="col-8">
-                    <div class="row">
-                        <h5 class="d-flex justify-content-center">
-                            حمّل تطبيق سبيد
-                        </h5>
-                        <span class="d-flex justify-content-center">
-                            استخدم تطبيق سبيد فور تريدينج لطلب كل المنتجات المعروضة في أي وقت وأي مكان
-                        </span>
-                    </div>
+                <div class="modal-body bg-white rounded-4 py-5">
+                    <p class="main-title position-relative fw-bold mx-auto mb-1">أدخل بياناتك</p>
+                    <p class="sub-title-form">أو أدخل بياناتك للاشتراك مع سبيد</p>
+                    <form class="px-md-4 px-1">
 
-                    <div class="row d-flex">
-                        <div class="col-2">
-                            <div class="img-cover"></div>
-                            <div class="title-box">
-                                إنجازات
-                            </div>
+                        <div class="register-errors alert text-danger d-none text-center"></div>
+
+                        <div class="form-floating mb-3">
+                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                                 src="{{ asset('assets/icon/user.svg') }}">
+                            <input type="text" class="form-control rounded-3 ps-5" id="registerName"
+                                   placeholder="الاسم">
+                            <label class="ps-5" for="registerName">الاسم</label>
                         </div>
-
-                        <div class="col-2">
-                            <div class="img-cover"></div>
-                            <div class="title-box">
-                                إنجازات
-                            </div>
+                        <div class="form-floating mb-3">
+                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                                 src="{{ asset('assets/icon/phone-2.svg') }}">
+                            <input type="text" class="form-control rounded-3 ps-5" id="registerMobile"
+                                   placeholder="رقم الهاتف">
+                            <label class="ps-5" for="registerMobile">رقم الهاتف</label>
                         </div>
-
-                        <div class="col-2">
-                            <div class="img-cover"></div>
-                            <div class="title-box">
-                                إنجازات
-                            </div>
+                        <div class="form-floating mb-3">
+                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                                 src="{{ asset('assets/icon/email.svg') }}">
+                            <input dir="rtl" type="email" class="form-control rounded-3 ps-5" id="registerEmail"
+                                   placeholder="البريد الاكتروني">
+                            <label class="ps-5" for="registerEmail">البريد الالكتروني</label>
                         </div>
-
-                        <div class="col-2">
-                            <div class="img-cover"></div>
-                            <div class="title-box">
-                                إنجازات
-                            </div>
+                        <div class="form-floating mb-3">
+                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                                 src="{{ asset('assets/icon/password.svg') }}">
+                            <input type="text" class="form-control rounded-3 ps-5" id="registerPassword"
+                                   placeholder="كلمة المرور">
+                            <label class="ps-5" for="registerPassword">كلمة المرور</label>
                         </div>
-
-                        <div class="col-2">
-                            <div class="img-cover"></div>
-                            <div class="title-box">
-                                إنجازات
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="row" style="display: flex;">
-                            <button class="btn btn-primary">
-                                <i class="fa-solid fa-arrow-left"></i>
-                                عرض الكل
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary py-2 rounded-3 w-100 registerBtn">
+                                <span class="me-auto">اشتراك</span>
+                                <span class="arrow ms-2">&#129128;</span>
                             </button>
                         </div>
-                    </div>
+                    </form>
+                </div>
+                <div class="modal-footer flex-column border-0">
+                    <p class="text-muted">بتسجيل حساب جديد مع سبيد أنت توافق على</p>
+                    <a class="text-white" href="#">الشروط والاحكام</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="events">
-        <div class="container">
-            <div class="row">
-                <div class="col-2 advertise-section">
-                    <div class="advertise-buttons">
-                        <button class="btn btn-light">
-                            <i class="fa-solid fa-circle-info"></i>
-                        </button>
-                        <button class="btn btn-light">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                </div>
 
-                <div class="col-8">
-                    <div class="row header-title">
-                        <h3 class="col-12">
-                            أحدث الفعاليات
-                        </h3>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-4">
-                            <div class="img-cover"></div>
-                            <div class="title-box">
-                                إنجازات
-                            </div>
-                        </div>
+    @push('js')
+        <script>
+            // Login Functionality
+            $('.loginBtn').click(function (e) {
+                e.preventDefault();
+                var mobile = $('#loginMobile').val(),
+                    password = $('#loginPassword').val();
 
-                        <div class="col-4">
-                            <div class="img-cover"></div>
-                            <div class="title-box">
-                                إنجازات
-                            </div>
-                        </div>
-
-                        <div class="col-4">
-                            <div class="img-cover"></div>
-                            <div class="title-box">
-                                إنجازات
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="img-cover"></div>
-                            <div class="title-box">
-                                إنجازات
-                            </div>
-                        </div>
-
-                        <div class="col-4">
-                            <div class="img-cover"></div>
-                            <div class="title-box">
-                                إنجازات
-                            </div>
-                        </div>
-
-                        <div class="col-4">
-                            <div class="img-cover"></div>
-                            <div class="title-box">
-                                إنجازات
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-5">
-                        <div class="col-12 offer-btn d-flex justify-content-center">
-                            <button class="btn btn-light">
-                                <i class="fa-solid fa-arrow-left"></i>
-                                عرض كل الفعاليات
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-2 advertise-section">
-                    <div class="advertise-buttons">
-                        <button class="btn btn-light">
-                            <i class="fa-solid fa-circle-info"></i>
-                        </button>
-                        <button class="btn btn-light">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-@endsection
-
-@section('js')
-    <script>
-        // Login Function
-        $('.loginBtn').click(function (e) {
-            e.preventDefault();
-
-            var mobile = $('#loginMobile').val(),
-                password = $('#loginPassword').val();
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                url: "{{ route('login') }}",
-                type: "POST",
-                data: {
-                    mobile: mobile,
-                    password: password,
-                },
-                success: function (data) {
-                    location.href = "{{ route('page') }}"
-                },
-                error: function (data) {
-                    $('.login-errors').empty();
-                    $('.login-errors').addClass('d-none');
-                    $.each(data.responseJSON.errors, function (key, value) {
-                        $('.login-errors').removeClass('d-none');
-                        $('.login-errors').append(`
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('login') }}",
+                    type: "POST",
+                    data: {
+                        mobile: mobile,
+                        password: password,
+                    },
+                    success: function (data) {
+                        location.href = "{{ route('account.index') }}"
+                    },
+                    error: function (data) {
+                        $('.login-errors').empty();
+                        $('.login-errors').addClass('d-none');
+                        $.each(data.responseJSON.errors, function (key, value) {
+                            $('.login-errors').removeClass('d-none');
+                            $('.login-errors').append(`
                             <span>` + value + `</span> <br>
                         `)
-                    });
-                }
-            });
+                        });
+                    }
+                });
+            })
 
-        })
-
-        // Register Function
-        $('.registerBtn').click(function (e) {
-            e.preventDefault();
-
-            var name = $('#registerName').val(),
-                mobile = $('#registerMobile').val(),
-                email = $('#registerEmail').val(),
-                password = $('#registerPassword').val();
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                url: "{{ route('register') }}",
-                type: "POST",
-                data: {
-                    name: name,
-                    mobile: mobile,
-                    email: email,
-                    password: password,
-                },
-                success: function (data) {
-                    location.href = "{{ route('page') }}"
-                },
-                error: function (data) {
-                    $('.register-errors').empty();
-                    $('.register-errors').addClass('d-none');
-                    $.each(data.responseJSON.errors, function (key, value) {
-                        $('.register-errors').removeClass('d-none');
-                        $('.register-errors').append(`
+            // Register Functionality
+            $('.registerBtn').click(function (e) {
+                e.preventDefault();
+                var name = $('#registerName').val(),
+                    mobile = $('#registerMobile').val(),
+                    email = $('#registerEmail').val(),
+                    password = $('#registerPassword').val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('register') }}",
+                    type: "POST",
+                    data: {
+                        name: name,
+                        mobile: mobile,
+                        email: email,
+                        password: password,
+                    },
+                    success: function (data) {
+                        location.href = "{{ route('account.index') }}"
+                    },
+                    error: function (data) {
+                        $('.register-errors').empty();
+                        $('.register-errors').addClass('d-none');
+                        $.each(data.responseJSON.errors, function (key, value) {
+                            $('.register-errors').removeClass('d-none');
+                            $('.register-errors').append(`
                             <span>` + value + `</span> <br>
                         `)
-                    });
+                        });
+                    }
+                });
+            })
+        </script>
+
+        <script>
+            $(document).on('click', '.btn-like', function(e) {
+                e.preventDefault();
+
+                var id = $(this).data('id');
+
+                if( $(this).hasClass('active') ){
+
+                    $.ajax({
+                        url: "{{ route('my_favorite.delete') }}",
+                        type: "GET",
+                        data: {
+                            id: id,
+                        },
+                        success: function(data) {
+                            Swal.fire({
+                                title: 'تم',
+                                text: 'لقد تم إزالتها بنجاح',
+                                icon: "success",
+                                buttonsStyling: false,
+                                confirmButtonText: 'إغلاق',
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+
+                            $.ajax({
+                                url: "{{ route('home') }}",
+                            }).done(function (data) {
+                                $(".items-card").html(data);
+                            });
+                        },
+                        error: function(data) {
+                            console.log(data)
+                        }
+                    })
+
+                }else{
+
+                    $.ajax({
+                        url: "{{ route('my_favorite.store') }}",
+                        type: "GET",
+                        data: {
+                            id: id,
+                        },
+                        success: function(data) {
+                            Swal.fire({
+                                title: 'تم',
+                                text: 'لقد تم إضافتها بنجاح',
+                                icon: "success",
+                                buttonsStyling: false,
+                                confirmButtonText: 'إغلاق',
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+
+                            $.ajax({
+                                url: "{{ route('home') }}",
+                            }).done(function (data) {
+                                $(".items-card").html(data);
+                            });
+                        },
+                        error: function(data) {
+                            console.log(data)
+                        }
+                    })
+
                 }
             });
-
-        })
-    </script>
-@endsection
+        </script>
+    @endpush
+</x-front-layout>

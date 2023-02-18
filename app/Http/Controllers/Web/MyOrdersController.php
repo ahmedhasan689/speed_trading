@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use App\Models\City;
 use App\Models\Order;
+use App\Models\OrderDetail;
+use Appstract\Options\Option;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class MyOrdersController extends Controller
 {
@@ -34,22 +40,86 @@ class MyOrdersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $cart = Cart::query()->where('user_id', Auth::id())->get();
+        $one_cart = Cart::query()->where('user_id', Auth::id())->first();
+
+        $cities = City::query()->get();
+
+        if( $request->ajax() ) {
+            return view('web.my_order.items_create', compact('cart', 'one_cart', 'cities'))->render();
+        }
+
+        return view('web.my_order.create', compact('cart', 'one_cart', 'cities'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Exception
      */
     public function store(Request $request)
     {
-        //
+        $cart = Cart::query()->where('user_id', Auth::id())->get();
+
+        $single_cart = Cart::query()->where('user_id', Auth::id())->first();
+
+        $coupon_exists = Cart::query()->where('user_id', Auth::id())->whereNotNull('coupon_id')->first();
+
+        $vat = Option::where('key', 'vat')->first();
+
+        DB::beginTransaction();
+
+        try {
+
+            // Create Order
+            $order = Order::create([
+                'user_id' => Auth::id(),
+                'provider_id' => null,
+                'address_id' => Auth::user()->addresses()->where('is_primary', 1)->first()->id,
+                'vat' => $vat->value,
+                'coupon_id' => $coupon_exists ? $coupon_exists->coupon->id : null,
+                'shipping' => 2,
+                'discount' => $coupon_exists ? $single_cart->price - $single_cart->final_price : '0',
+                'price' => $single_cart->final_price,
+                'payment_method' => 'online',
+                'name' => Auth::user()->name,
+                'mobile' => Auth::user()->mobile,
+            ]);
+
+            foreach ( $cart as $single_cart ) {
+                OrderDetail::create([
+                    'order_id' => $order->id,
+                    'item_id' => $single_cart->id,
+                    'quantity' => $single_cart->quantity,
+                    'price' => $single_cart->quantity * $single_cart->item->price,
+                ]);
+            }
+
+            DB::commit();
+
+            if( $request->type == 1 ) { // Online Payment => Redirect To Paymob Gateway
+
+
+                return redirect()->action(
+                    [PaymentController::class, 'credit'], ['id' => $order->id]
+                );
+            }else{ // Cash Payment
+                return redirect()->route('success-page');
+            }
+
+
+        }catch (\Throwable $e) {
+            DB::rollBack();
+
+            return $e;
+        }
+
+
     }
 
     /**

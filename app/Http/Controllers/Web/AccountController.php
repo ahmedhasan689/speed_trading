@@ -16,9 +16,9 @@ class AccountController extends Controller
 {
     /**
      * @param Request $request
-     * @return string
+     * @return View
      */
-    public function index(Request $request): string
+    public function index(Request $request)
     {
         $user = User::query()->where('id', Auth::id())->first();
 
@@ -39,8 +39,8 @@ class AccountController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'mobile' => 'required|numeric',
-            'email' => 'required|email|unique:users,email',
+            'mobile' => 'required|numeric|unique:users,mobile,'.$user->id,
+            'email' => 'required|email|unique:users,email,'.$user->id,
         ]);
 
         $user->update([

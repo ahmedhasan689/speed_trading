@@ -74,7 +74,7 @@ class AuthController extends Controller
         $requests['status'] = 'new';
 
 
-        $requests['password']  =Hash::make($request->password);
+        $requests['password'] = Hash::make($request->password);
         if ($request->has('image') && $request->image != null){
             $requests['image'] = $this->saveImage($request->image);
             $request->files->remove('image');

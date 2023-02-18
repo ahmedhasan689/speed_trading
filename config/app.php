@@ -167,6 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
+        BaklySystems\PayMob\PayMobServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -191,7 +192,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // ...
+        'PayMob' => BaklySystems\PayMob\Facades\PayMob::class,
     ])->toArray(),
 
 ];

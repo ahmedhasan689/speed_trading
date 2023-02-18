@@ -1,11 +1,27 @@
 <?php
 
 use App\Http\Controllers\Web\AccountController;
+use App\Http\Controllers\Web\AddressController;
+use App\Http\Controllers\Web\BrandsController;
+use App\Http\Controllers\Web\CartController;
+use App\Http\Controllers\Web\CategoriesController;
 use App\Http\Controllers\Web\CompanyController;
+use App\Http\Controllers\Web\ContactUsController;
+use App\Http\Controllers\Web\CouponController;
+use App\Http\Controllers\Web\EventsController;
 use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\ItemController;
+use App\Http\Controllers\Web\JobsController;
 use App\Http\Controllers\Web\MyFavoriteController;
 use App\Http\Controllers\Web\MyOrdersController;
 use App\Http\Controllers\Web\MyPointController;
+use App\Http\Controllers\Web\PagesController;
+use App\Http\Controllers\Web\PaymentController;
+use App\Http\Controllers\Web\RoomsController;
+use App\Http\Controllers\Web\SearchController;
+use App\Http\Controllers\Web\SolutionController;
+use App\Http\Controllers\Web\SpeedForTrainingController;
+use App\Http\Controllers\Web\TrainingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +47,10 @@ require __DIR__.'/auth.php';
 Route::patch('/fcm-token', [\App\Http\Controllers\HomeController::class, 'updateToken'])->name('fcmToken');
 
 
-Route::name('dashboard.')->namespace('App\Http\Controllers\Dashboard')->middleware(['language', 'auth'])->prefix('dashboard')->group(function () {
+Route::name('dashboard.')
+    ->namespace('App\Http\Controllers\Dashboard')
+    ->middleware(['language', 'auth', 'prevent.dashboard'])
+    ->prefix('dashboard')->group(function () {
 
     Route::get('/', function () {
         return redirect(route('dashboard.home'));
@@ -197,49 +216,231 @@ Route::namespace('\App\Http\Controllers\Web')->group(function () {
 //            Route::get('/login/google/callback', 'googleCallback')->name('google.callback');
 //        });
 
+    // Start Account Route
     Route::controller(AccountController::class)
         ->prefix('account')
         ->as('account.')
         ->group(function() {
             Route::get('/', 'index')->name('index');
-            Route::put('/', 'update')->name('update');
-            Route::put('/reset-password', 'resetPassword')->name('resetPassword');
+            Route::get('/update', 'update')->name('update');
+            Route::get('/reset-password', 'resetPassword')->name('resetPassword');
         });
+    // Start Account Route
 
+    // Start My Orders Route
     Route::controller(MyOrdersController::class)
         ->prefix('my-order')
-        ->as('my_order')
+        ->as('my_order.')
         ->group(function (){
             Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
             Route::get('/{id}', 'show')->name('show');
         });
+    // End My Orders Route
 
+    // Start My Points Route
     Route::controller(MyPointController::class)
         ->prefix('my-points')
-        ->as('my_point')
+        ->as('my_point.')
         ->group(function() {
             Route::get('/', 'index')->name('index');
         });
+    // End My Points Route
 
+    // Start Favorite Route
     Route::controller(MyFavoriteController::class)
         ->prefix('my-favorite')
-        ->as('my_favorite')
+        ->as('my_favorite.')
         ->group(function() {
             Route::get('/', 'index')->name('index');
+            Route::get('/favorite-store', 'store')->name('store');
+            Route::get('/favorite-delete', 'destroy')->name('delete');
         });
+    // End Favorite Route
 
 
+    // Start Company Route
     Route::controller(CompanyController::class)
         ->prefix('company')
         ->as('company.')
+        ->withoutMiddleware('auth')
         ->group(function() {
             Route::get('/', 'index')->name('index');
             Route::post('/', 'store')->name('store');
         });
+    // End Company Route
+
+    // Start Category Route
+    Route::controller(CategoriesController::class)
+        ->prefix('categories')
+        ->as('category.')
+        ->withoutMiddleware('auth')
+        ->group(function() {
+            Route::get('/{id}', 'show')->name('show');
+        });
+    // End Category Route
+
+    // Start Pages Controller
+    Route::controller(PagesController::class)
+        ->as('page.')
+        ->withoutMiddleware('auth')
+        ->group(function() {
+            Route::get('terms', 'terms')->name('terms');
+            Route::get('usage-policy', 'usagePolicy')->name('usagePolicy');
+            Route::get('about-company', 'aboutCompany')->name('aboutCompany');
+            Route::get('faqs', 'faqs')->name('faqs');
+            Route::get('support', 'support')->name('support');
+        });
+    // End Pages Controller
+
+    // Start Event Route
+    Route::controller(EventsController::class)
+        ->prefix('events')
+        ->as('event.')
+        ->group(function() {
+            Route::get('/', 'index')->name('index')->withoutMiddleware(['auth']);
+            Route::get('/event-reservation', 'reservation')->name('reservation');
+            Route::get('/{id}', 'show')->name('show');
+        });
+    // End Event Route
+
+    // Start Room Route
+    Route::controller(RoomsController::class)
+        ->prefix('rooms')
+        ->as('room.')
+        ->withoutMiddleware(['auth'])
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{id}', 'show')->name('show');
+        });
+    // End Room Route
+
+    // Start Training Route
+    Route::controller(TrainingController::class)
+        ->prefix('trainings')
+        ->as('training.')
+        ->withoutMiddleware(['auth'])
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{id}', 'show')->name('show');
+        });
+    // End Training Route
+
+    // Start Speed For Training Route
+    Route::controller(SpeedForTrainingController::class)
+        ->prefix('speed_trainings')
+        ->as('speed_training.')
+        ->withoutMiddleware(['auth'])
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::get('/reservation', 'reservation')->name('reservation');
+            Route::get('/{id}', 'show')->name('show');
+        });
+    // End Speed For Training Route
+
+    // Start Jobs Route
+    Route::controller(JobsController::class)
+        ->prefix('jobs')
+        ->as('job.')
+        ->withoutMiddleware(['auth'])
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::get('/get-job', 'getJob')->name('getJob');
+        });
+    // End Jobs Route
+
+    // Start Address Route
+    Route::controller(AddressController::class)
+        ->prefix('addresses')
+        ->as('address.')
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::get('/save-address', 'store')->name('store');
+            Route::get('/update-address', 'update')->name('update');
+            Route::get('/delete-address', 'destroy')->name('delete');
+        });
+    // End Address Route
+
+    // Start Search Controller
+    Route::controller(SearchController::class)
+        ->prefix('search-page')
+        ->as('search.')
+        ->group(function () {
+            Route::get('/', 'search')->name('index');
+        });
+    // End Search Controller
+
+    // Start Brand Controller
+    Route::controller(BrandsController::class)
+        ->prefix('brands')
+        ->as('brand.')
+        ->group(function() {
+            Route::get('/{id}', 'show')->name('show');
+        });
+    // End Brand Controller
+
+    // Start Cart Route
+    Route::controller(CartController::class)
+        ->prefix('carts')
+        ->as('cart.')
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/add-to-cart/{id}', 'store')->name('store');
+            Route::get('/{id}', 'show')->name('show');
+        });
+    // End Cart Route
+
+    // Start Item Route
+    Route::controller(ItemController::class)
+        ->prefix('items')
+        ->as('item.')
+        ->group(function() {
+            Route::post('/download', 'download')->name('download');
+            Route::get('/{id}', 'show')->name('show');
+            Route::get('/compare/{id}', 'compare')->name('compare');
+        });
+    //End Item Route
+
+    // Start Solution Route
+    Route::controller(SolutionController::class)
+        ->prefix('solutions')
+        ->as('solution.')
+        ->withoutMiddleware(['auth'])
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::get('/get-solution', 'getSolution')->name('getSolution');
+        });
+    // End Solution Route
+
+    // Start Contact Us Route
+    Route::controller(ContactUsController::class)
+        ->prefix('contact-us')
+        ->as('contact.')
+        ->withoutMiddleware(['auth'])
+        ->group(function() {
+            Route::get('/', 'store')->name('store');
+        });
+    // End Contact Us Route
+
+    // Start Payment Route
+    Route::controller(PaymentController::class)
+        ->prefix('payment')
+        ->as('payment.')
+        ->group(function() {
+            Route::get('/paymob/{id}', 'credit')->name('create');
+        });
+    // End Payment Route
 
 
-    Route::get('/about-company', function() {
-        return view('web.pages.about-company');
-    })->name('about-company');
+    // Route Coupon
+    Route::get('/set-coupon', [CouponController::class, 'store'])->name('coupon.store');
+
+    // Success Payment Page
+    Route::get('/success-page', function() {
+        return view('web.payment.index');
+    })->name('success-page');
+
 });
 

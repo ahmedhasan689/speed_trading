@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\SolutionRequest;
+use App\Models\ItemSolution;
 use App\Models\Solution;
 use App\Models\SolutionImage;
 use Illuminate\Http\Request;
@@ -69,8 +70,8 @@ class SolutionController extends Controller
      */
     public function store(SolutionRequest $request)
     {
-
-        $requests = $request->except('items');
+//        dd( $request->all() )
+        $requests = $request->except('item_id');
 
         $solution = Solution::create($requests);
         if ($request->hasFile('image')) {
@@ -78,7 +79,7 @@ class SolutionController extends Controller
             SolutionImage::create(['url'=>$image,'solution_id'=>$solution->id,'type'=>'image']);
             $request->files->remove('image');
         }
-        $solution->items()->sync($request->items);
+        $solution->items()->sync($request->item_id);
         toast(__('Added successfully'),'success');
         return redirect(route('dashboard.solutions.index'));
     }
@@ -94,7 +95,9 @@ class SolutionController extends Controller
 
         $solution = Solution::findOrFail($id);
 
-        return view('dashboard.solutions.edit',compact('solution'));
+        $solution_items = ItemSolution::query()->where('solution_id', $solution->id)->pluck('solution_id')->toArray();
+
+        return view('dashboard.solutions.edit',compact('solution', 'solution_items'));
     }
 
     /**
@@ -107,14 +110,14 @@ class SolutionController extends Controller
     {
 
         $solution = Solution::findOrFail($id);
-        $requests = $request->except('items');
+        $requests = $request->except('item_id');
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'images');
             $request->files->remove('image');
         }
 
         $solution->fill($requests)->save();
-        $solution->items()->sync($request->items);
+        $solution->items()->sync($request->item_id);
 
         toast(__('Edited successfully'),'success');
         return redirect(route('dashboard.solutions.index'));

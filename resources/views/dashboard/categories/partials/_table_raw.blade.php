@@ -1,6 +1,6 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
-    <td><img src="{!! url('/').'/'.$category->image !!}" style="width: 300px; "></td>
+    <td><img src="{!! url('/').'/'.$category->image !!}" style="width: 50px; "></td>
 
     <td>{{$category->getTranslation('name', 'ar')}}</td>
         <td>{{$category->getTranslation('name', 'en')}}</td>

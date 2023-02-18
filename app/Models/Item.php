@@ -43,7 +43,8 @@ class Item extends Model
         return $this->belongsTo(Category::class,'category_id');
     }
 
-    public function images(){
+    public function images()
+    {
         return $this->hasMany(ItemImage::class,'item_id');
     }
 
@@ -96,4 +97,14 @@ class Item extends Model
 //    }
 
 
+    public function scopeTableFilters($query)
+    {
+        return $query->when(request()->input('price', false), function ($query, $price) {
+            return $query->whereBetween('price', [ $price[0], $price[1] ]);
+        })->when(request()->input('brand_id', false), function ($query, $brand_id) {
+            return $query->where('brand_id', 'like', '%' . $brand_id . '%');
+        })->when(request()->input('category_id', false), function ($query, $category_id) {
+            return $query->where('category_id', $category_id );
+        });
+    }
 }
