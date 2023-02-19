@@ -41,25 +41,6 @@
 
                     <div class="mb-4">
                         <h6 class="fw-bold text-color mb-3">نوع الجهاز</h6>
-{{--                        <div class="dropdown-center">--}}
-{{--                            <button class="btn btn-white-2 dropdown-toggle p-2 w-100 categoryValue" type="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
-{{--                                كاميرات--}}
-{{--                            </button>--}}
-{{--                            <ul class="dropdown-menu rounded-3 w-100 px-2">--}}
-{{--                                @foreach( $categories as $category )--}}
-{{--                                    <li>--}}
-{{--                                        <a class="dropdown-item rounded-3 py-2 categoryName" href="#" data-id="{{ $category->id }}">--}}
-{{--                                            <img src="{{ asset($category->image) }}" class="me-3" width="30">--}}
-{{--                                            <small class="fw-bold">--}}
-{{--                                                {{ $category->getTranslation('name', app()->getLocale()) }}--}}
-{{--                                            </small>--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                @endforeach--}}
-
-{{--                            </ul>--}}
-{{--                        </div>--}}
-
                         <select id="type-select" class="form-select p-2 categoryName">
                             <option selected>كاميرات</option>
                             @foreach( $categories as $category )
@@ -145,6 +126,10 @@
                             }).done(function (data) {
                                 $(".items-card").html(data);
                             });
+
+                            setTimeout(function(){// wait for 5 secs(2)
+                                location.reload(); // then reload the page.(3)
+                            }, 1000);
                         },
                         error: function(data) {
                             console.log(data)
@@ -176,6 +161,10 @@
                             }).done(function (data) {
                                 $(".items-card").html(data);
                             });
+
+                            setTimeout(function(){// wait for 5 secs(2)
+                                location.reload(); // then reload the page.(3)
+                            }, 1000);
                         },
                         error: function(data) {
                             console.log(data)

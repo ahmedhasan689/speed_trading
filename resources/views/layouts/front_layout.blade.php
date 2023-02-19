@@ -80,7 +80,7 @@
                     <a href="{{ route('my_favorite.index') }}" class="d-none d-lg-flex">
                         <img src="{{ asset('assets/icon/favorite.svg') }}" alt="">
                     </a>
-                    <a href="#">
+                    <a href="{{ route('cart.index') }}">
                         <img src="{{ asset('assets/icon/cart_nav.svg') }}" alt="">
                     </a>
                     <button class="btn p-0 d-flex d-lg-none cursor-pointer" data-bs-toggle="offcanvas"
@@ -334,10 +334,10 @@
                         </ul>
                     </div>
 
-                    <a href="{{ route('my_favorite.index') }}" class="d-none d-lg-flex">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="d-none d-lg-flex">
                         <img src="{{ asset('assets/icon/favorite.svg') }}" alt="">
                     </a>
-                    <a href="#">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
                         <img src="{{ asset('assets/icon/cart_nav.svg') }}" alt="">
                     </a>
                     <button class="btn p-0 d-flex d-lg-none cursor-pointer" data-bs-toggle="offcanvas"
@@ -580,16 +580,16 @@
 
         <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mt-4">
             <div class="d-flex gap-3 align-items-center">
-                <a href="" class="btn btn-white btn-sm shadow-sm rounded-3">
+                <a href="{{ $options->where('key', 'facebook_url')->first()->value }}" class="btn btn-white btn-sm shadow-sm rounded-3">
                     <img src="{{ asset('assets/icon/social_facebook.svg') }}">
                 </a>
-                <a href="" class="btn btn-white btn-sm shadow-sm rounded-3">
+                <a href="{{ $options->where('key', 'twitter_url')->first()->value }}" class="btn btn-white btn-sm shadow-sm rounded-3">
                     <img src="{{ asset('assets/icon/social_twitter.svg') }}">
                 </a>
-                <a href="" class="btn btn-white btn-sm shadow-sm rounded-3">
+                <a href="{{ $options->where('key', 'linkedin_url')->first()->value }}" class="btn btn-white btn-sm shadow-sm rounded-3">
                     <img src="{{ asset('assets/icon/social_linkedin.svg') }}">
                 </a>
-                <a href="" class="btn btn-white btn-sm shadow-sm rounded-3">
+                <a href="{{ $options->where('key', 'youtube_url')->first()->value }}" class="btn btn-white btn-sm shadow-sm rounded-3">
                     <img src="{{ asset('assets/icon/social_yoututbe.svg') }}">
                 </a>
             </div>

@@ -47,13 +47,15 @@ class MyOrdersController extends Controller
         $cart = Cart::query()->where('user_id', Auth::id())->get();
         $one_cart = Cart::query()->where('user_id', Auth::id())->first();
 
-        $cities = City::query()->get();
+        $cities = City::query()->whereNotNull('upper_id')->get();
+
+        $governorates = City::with('cities')->whereNull('upper_id')->get();
 
         if( $request->ajax() ) {
-            return view('web.my_order.items_create', compact('cart', 'one_cart', 'cities'))->render();
+            return view('web.my_order.items_create', compact('cart', 'one_cart', 'cities', 'governorates'))->render();
         }
 
-        return view('web.my_order.create', compact('cart', 'one_cart', 'cities'));
+        return view('web.my_order.create', compact('cart', 'one_cart', 'cities', 'governorates'));
     }
 
     /**

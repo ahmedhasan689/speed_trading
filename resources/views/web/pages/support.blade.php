@@ -12,22 +12,57 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="support-chat rounded-4">
-                        <div class="text-muted text-center rounded-bottom rounded-4 p-2" style="background: #013880">
+                        <div class="text-muted text-center rounded-bottom rounded-4 p-2" style="background: #013880" id="chats">
                             <small>أنت الآن تتحدث مع مندوب خدمة العملاء</small>
                         </div>
 
                         <div class="chat-wrapper text-white position-relative d-flex align-items-center justify-content-center pb-3">
                             <div class="chat-box pb-5 pt-2">
                                 <p class="text-muted text-center fs-6">بداية المحادثة</p>
+
                                 <div class="d-flex justify-content-end align-items-center gap-4 mb-3 fs-6">
                                     <small class="text-muted">10:37:09</small>
                                     <div class="chat-text text-bg-primary rounded-3 p-2">تتفهم هيكفيجن هذه الاحتياجات الفريدة</div>
                                 </div>
-                                <div class="d-flex justify-content-start align-items-center gap-4 mb-3 fs-6">
-                                    <div class="chat-text text-bg-light rounded-3 p-2">تتفهم هيكفيجن هذه الاحتياجات الفريدة</div>
-                                    <small class="text-muted">10:37:09</small>
-                                </div>
+
+                                @if( $messages->count() > 0 )
+                                    @foreach($messages as $message)
+
+                                        <div class="d-flex
+                                        @if( $message->from_id === $message->channel->user_id )
+                                            justify-content-start
+                                        @else
+                                            justify-content-end
+                                        @endif align-items-center gap-4 mb-3 fs-6">
+                                            <div class="chat-text
+                                            @if( $message->from_id === $message->channel->user_id )
+                                                text-bg-light
+                                            @else
+                                                text-bg-primary
+                                            @endif rounded-3 p-2">
+                                                {{ $message->message }}
+                                            </div>
+                                            <small class="text-muted">
+                                                {{ \Carbon\Carbon::parse($message->created_at)->format('H:i:s') }}
+                                            </small>
+                                        </div>
+                                    @endforeach
+
+                                @else
+                                    <div class="d-flex justify-content-end align-items-center gap-4 mb-3 fs-6">
+                                        <small class="text-muted">10:37:09</small>
+                                        <div class="chat-text text-bg-primary rounded-3 p-2">تتفهم هيكفيجن هذه الاحتياجات الفريدة</div>
+                                    </div>
+                                    <div class="d-flex @if( $channel->user_id == auth()->id() ) justify-content-start @else justify-content-end @endif align-items-center gap-4 mb-3 fs-6">
+                                        <div class="chat-text text-bg-light rounded-3 p-2">
+                                            user D
+                                        </div>
+                                        <small class="text-muted">10:37:09</small>
+                                    </div>
+                                @endif
+
                             </div>
+
                             <div class="chat-input">
                                 <div class="input-group flex-nowrap">
                                     <input type="text" class="form-control border-0 py-2" placeholder="اكتب رسالتك...">

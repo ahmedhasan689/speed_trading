@@ -111,11 +111,12 @@
         <a href="{{ route('page.terms') }}" class="text-main-color fw-bold text-decoration-none">الشروط والاحكام</a>
     </span>
 
+{{--    @dd( auth()->user()->addresses()->where('is_primary', 1)->exists() )--}}
     <form action="{{ route('my_order.store') }}" method="POST">
         @csrf
 
         <input type="hidden" value="" name="type" id="type">
-        <button class="btn btn-primary py-2 rounded-4" style="width: 200px;">
+        <button class="btn btn-primary py-2 rounded-4" style="width: 200px;" @if( !auth()->user()->addresses()->where('is_primary', 1)->first() ) disabled @endif>
             <span>تأكيد الطلب</span>
             <img src="{{ asset('assets/icon/arrow_next.svg') }}" class="float-end">
         </button>

@@ -360,6 +360,7 @@ Route::namespace('\App\Http\Controllers\Web')->group(function () {
             Route::get('/save-address', 'store')->name('store');
             Route::get('/update-address', 'update')->name('update');
             Route::get('/delete-address', 'destroy')->name('delete');
+            Route::get('/get-city', 'getCity')->name('getCity');
         });
     // End Address Route
 

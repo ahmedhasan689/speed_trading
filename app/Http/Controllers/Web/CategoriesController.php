@@ -27,7 +27,6 @@ class CategoriesController extends Controller
         $favorites = Favourite::query()->with(['user', 'favourable'])->where('user_id', Auth::id())->pluck('favourable_id')->toArray();
 
         if( $request->ajax() ) {
-
             return view('web.category.items-card', compact('category', 'categories', 'items', 'favorites'))->render();
         }
 

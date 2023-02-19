@@ -52,14 +52,30 @@
                                 <div class="row g-2">
                                     <div class="col-md">
                                         <div class="form-floating mb-3">
-                                            <select class="form-select addressCityEdit" id="addressCityEdit-{{ $address->id }}" name="city_id">
-                                                @foreach($cities as $city )
-                                                    <option value="{{ $city->id }}" @if($city->id == $address->city->id) selected @endif>
+                                            <select class="form-select addressGovernorate" data-type="edit" id="addressGovernorate" name="governorate_id">
+                                                <option selected>المحافظة</option>
+                                                @foreach( $governorates as $governorate )
+                                                    <option value="{{ $governorate->id }}" @if( $governorate->id == $address->city->governorate->id) selected @endif>
+                                                        {{ $governorate->getTranslation('name', app()->getLocale()) }}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
+                                            <label for="floatingSelectGrid">المحافظة</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select addressCityEdit-{{ $address->id }}" id="addressCity" name="city_id">
+                                                <option selected>المدينة</option>
+                                                @foreach( $cities as $city )
+                                                    <option value="{{ $city->id }}" @if( $address->city->id == $city->id) selected @endif>
                                                         {{ $city->getTranslation('name', app()->getLocale()) }}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            <label for="addressCityEdit">المدينة</label>
+                                            <label for="floatingSelectGrid">المدينة</label>
                                         </div>
                                     </div>
                                 </div>

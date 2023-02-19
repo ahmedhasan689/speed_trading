@@ -19,21 +19,21 @@
                         <div class="card-body text-center">
                             <img src="{{ asset('assets/images/logo.png') }}" width="230" alt="logo">
                             <p class="my-5">
-                                سبيد فور تريدنج هي شركة رائدة في أنظمة المراقبة والأمن بالكاميرات ، تأسست عام 1999 ، من قبل العاصمة المصرية والشبان المصريين. وفي غضون سنوات قليلة ، أصبحنا أحد أهم الموردين المصريين الرائدين لمنتجات وحلول المراقبة بالفيديو ... تخدم سبيد مجموعة واسعة من الأسواق بما في ذلك البيع بالتجزئة ، والخدمات المصرفية ، والتمويل ، والنقل ، والتعليم ، والتجارية ، والحكومية ، والسكنية ، والعديد من التطبيقات المختلفة. بدأنا بفرعين والآن لدينا العديد من الفروع في جميع أنحاء مصر وكذلك في الإمارات العربية المتحدة. استحوذت سبيد على الكثير من الوكالات للعديد من العلامات التجارية العالمية ونجحت في الترويج لها في السوق المصري بطريقة احترافية للغاية ، حيث كنا الوكيل الوحيد لعلامة داهوا في السوق المصري لمدة أربع سنوات تقريبًا.
+                                {!! $text->getTranslation('content', 'ar')  !!}
                             </p>
                             <div class="d-flex justify-content-center gap-4">
-                                <button class="btn btn-light btn-social">
+                                <a href="{{ $options->where('key', 'youtube_url')->first()->value }}" class="btn btn-light btn-social">
                                     <img src="{{ asset('assets/icon/social_yoututbe.svg') }}">
-                                </button>
-                                <button class="btn btn-light btn-social">
+                                </a>
+                                <a href="{{ $options->where('key', 'linkedin_url')->first()->value }}" class="btn btn-light btn-social">
                                     <img src="{{ asset('assets/icon/social_linkedin.svg') }}">
-                                </button>
-                                <button class="btn btn-light btn-social">
+                                </a>
+                                <a href="{{ $options->where('key', 'twitter_url')->first()->value }}" class="btn btn-light btn-social">
                                     <img src="{{ asset('assets/icon/social_twitter.svg') }}">
-                                </button>
-                                <button class="btn btn-light btn-social">
+                                </a>
+                                <a href="{{ $options->where('key', 'facebook_url')->first()->value }}" class="btn btn-light btn-social">
                                     <img src="{{ asset('assets/icon/social_facebook.svg') }}">
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

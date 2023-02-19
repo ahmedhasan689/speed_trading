@@ -41,15 +41,30 @@
                         <div class="row g-2">
                             <div class="col-md">
                                 <div class="form-floating mb-3">
-                                    <select class="form-select" id="addressCity" name="city_id">
+                                    <select class="form-select addressGovernorateCreate" data-type="create" id="addressGovernorate" name="governorate_id">
+                                        <option>المحافظة</option>
+                                        @foreach( $governorates as $governorate )
+                                            <option value="{{ $governorate->id }}">
+                                                {{ $governorate->getTranslation('name', app()->getLocale()) }}
+                                            </option>
+                                        @endforeach
+
+                                    </select>
+                                    <label for="floatingSelectGrid">المحافظة</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select addressCity" id="addressCity" name="city_id" disabled>
                                         <option selected>المدينة</option>
-                                        @foreach($cities as $city )
+                                        @foreach( $cities as $city )
                                             <option value="{{ $city->id }}">
                                                 {{ $city->getTranslation('name', app()->getLocale()) }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    <label for="addressCity">المدينة</label>
+                                    <label for="floatingSelectGrid">المدينة</label>
                                 </div>
                             </div>
                         </div>
@@ -90,13 +105,51 @@
 
     @push('js')
         <script>
+            // Get City
+            $(document).on('change', '.addressGovernorateCreate, addressGovernorateEdit', function(e) {
+                e.preventDefault();
+
+                if( $(this).data('type') == 'create' ) {
+                    var id = $('.addressGovernorateCreate').val();
+                }else{
+                    var id = $('.addressGovernorateEdit').val();
+                }
+
+                $.ajax({
+                    url: "{{ route('address.getCity') }}",
+                    type: "GET",
+                    data: {
+                        id: id,
+                    },
+                    success: function(data) {
+                        if( data.cities ) {
+                            $('.addressCity').attr('disabled', false)
+                            $('.addressCity').empty();
+                            $('.addressCity').append(`
+                                    <option value="">المدينة</option>
+                                `)
+                            $.each(data.cities, function(key, value) {
+                                $('.addressCity').append(`
+                                    <option value="`+value.id+`">`+value.name.en+`</option>
+                                `)
+                            })
+                        };
+                    },
+                    error: function(data) {
+
+                    },
+
+                })
+            });
+
             // Create Address
             $(document).on('click', '.addressBtn', function(e) {
                 e.preventDefault();
 
                 var name = $('#addressName').val(),
                     address = $('#address').val(),
-                    city_id = $('#addressCity').val(),
+                    city_id = $('.addressCity').val(),
+                    governorate_id = $('#addressGovernorate').val(),
                     lat = $('#addressLat').val(),
                     lng = $('#addressLan').val();
 
@@ -166,7 +219,7 @@
 
                     var name = $('#addressNameEdit-'+id).val(),
                         address = $('#addressEdit-'+id).val(),
-                        city_id = $('#addressCityEdit-'+id).val(),
+                        city_id = $('.addressCityEdit-'+id).val(),
                         lat = $('#addressLatEdit-'+id).val(),
                         lng = $('#addressLanEdit-'+id).val();
 

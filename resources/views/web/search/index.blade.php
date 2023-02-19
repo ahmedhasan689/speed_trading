@@ -22,50 +22,26 @@
 
                     <div class="mb-4">
                         <h6 class="fw-bold text-color mb-3">نوع الجهاز</h6>
-                        <div class="dropdown-center">
-                            <button class="btn btn-white-2 dropdown-toggle p-2 w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                كاميرات
-                            </button>
-                            <ul class="dropdown-menu rounded-3 w-100 px-2">
-                                <li><a class="dropdown-item rounded-3 py-2" href="#">
-                                        <img src="../icon/marka-1.png" class="me-3" width="30">
-                                        <small class="fw-bold">HIKVISION</small>
-                                    </a></li>
-                                <li><a class="dropdown-item rounded-3 py-2" href="#">
-                                        <img src="../icon/marka-2.png" class="me-3" width="30">
-                                        <small class="fw-bold">Ex-Tell</small>
-                                    </a></li>
-                                <li><a class="dropdown-item rounded-3 py-2" href="#">
-                                        <img src="../icon/marca-3.png" class="me-3" width="30">
-                                        <small class="fw-bold">Digitals</small>
-                                    </a></li>
-                            </ul>
-                        </div>
+                        <select id="type-select" class="form-select p-2 categoryName">
+                            <option selected>كاميرات</option>
+                            @foreach( $categories as $category )
+                                <option value="{{ $category->id }}" data-img_src="../icon/marka-1.png">
+                                    {{ $category->getTranslation('name', app()->getLocale()) }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
 
                     <div class="mb-4">
                         <h6 class="fw-bold text-color mb-3">الماركة</h6>
                         <div>
-                            <input type="checkbox" class="btn-check" id="btn-check1" autocomplete="off">
-                            <label class="btn btn-white mb-1" for="btn-check1">
-                                <img src="../images/com-1.png" alt="" height="10">
-                            </label>
-
-                            <input type="checkbox" class="btn-check" id="btn-check2" autocomplete="off">
-                            <label class="btn btn-white mb-1" for="btn-check2">
-                                <img src="../images/com-2.png" alt="" height="10">
-                            </label>
-
-                            <input type="checkbox" class="btn-check" id="btn-check3" autocomplete="off">
-                            <label class="btn btn-white mb-1" for="btn-check3">
-                                <img src="../images/com-3.png" alt="" height="10">
-                            </label>
-
-                            <input type="checkbox" class="btn-check" id="btn-check4" autocomplete="off">
-                            <label class="btn btn-white mb-1" for="btn-check4">
-                                <img src="../images/com-4.png" alt="" height="10">
-                            </label>
+                            @foreach( $brands as $brand )
+                                <input type="checkbox" name="brand_id" class="btn-check brandName" value="{{ $brand->id }}" id="btn-check-{{ $brand->id }}" autocomplete="off">
+                                <label class="btn btn-white mb-1" for="btn-check-{{ $brand->id }}">
+                                    <img src="{{ asset($brand->image) }}" alt="" height="10">
+                                </label>
+                            @endforeach
                         </div>
                     </div>
 
@@ -73,19 +49,19 @@
                         <h6 class="fw-bold text-color mb-3">السعر</h6>
                         <div>
                             <div>
-                                <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off">
+                                <input type="radio" class="btn-check price" value="0 - 200" name="options" id="option1" autocomplete="off">
                                 <label class="btn btn-white mb-1" for="option1">أقل من 200 جنيه</label>
                             </div>
-                            <div><input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
+                            <div><input type="radio" class="btn-check price" value="201 - 500" name="options" id="option2" autocomplete="off">
                                 <label class="btn btn-white mb-1" for="option2">من 201 الى 500 جنيه</label></div>
 
-                            <div><input type="radio" class="btn-check" name="options" id="option3" autocomplete="off">
+                            <div><input type="radio" class="btn-check price" value="501 - 1000" name="options" id="option3" autocomplete="off">
                                 <label class="btn btn-white mb-1" for="option3">من 501 الى 1,000 جنيه</label></div>
 
-                            <div><input type="radio" class="btn-check" name="options" id="option4" autocomplete="off">
+                            <div><input type="radio" class="btn-check price" value="1001 - 1500" name="options" id="option4" autocomplete="off">
                                 <label class="btn btn-white mb-1" for="option4">من 1,001 الى 1,500 جنيه</label></div>
 
-                            <div><input type="radio" class="btn-check" name="options" id="option5" autocomplete="off">
+                            <div><input type="radio" class="btn-check price" value="1501 - 2000" name="options" id="option5" autocomplete="off">
                                 <label class="btn btn-white mb-1" for="option5">أكثر من 1,500 جنيه</label></div>
 
                         </div>
@@ -179,6 +155,53 @@
 
                 }
             });
+        </script>
+
+        <script>
+            $(document).on('change', '.categoryName',function (e) {
+                let category_id = $(this).val();
+                let brand_id = $("input[name='brand_id']:checked").val() ?? null;
+                let price = $("input[name='options']:checked").val() ?? "0 - 10000";
+                price = price.split('-')
+
+                var url = $(this).attr('href');
+                getData(url, {category_id: category_id, brand_id: brand_id, price:price});
+
+            });
+
+            $(document).on('click', '.brandName',function (e) {
+                let category_id = $('.categoryName').data('id');
+                let brand_id = $("input[name='brand_id']:checked").val() ?? null;
+                let price = $("input[name='options']:checked").val() ?? "0 - 10000";
+                price = price.split('-')
+
+                var url = $(this).attr('href');
+                getData(url, {category_id: category_id, brand_id: brand_id, price:price});
+
+            });
+
+            $(document).on('click', '.price',function (e) {
+                let category_id = $('.categoryName').data('id');
+                let brand_id = $("input[name='brand_id']:checked").val() ?? null;
+                let price = $("input[name='options']:checked").val() ?? "0 - 10000";
+                price = price.split('-')
+
+
+                var url = $(this).attr('href');
+                getData(url, {category_id: category_id, brand_id: brand_id, price:price});
+
+            });
+
+            function getData(url, data = null) {
+                $.ajax({
+                    url: url,
+                    data: data
+                }).done(function (data) {
+                    $(".items-card").empty().html(data);
+
+                });
+
+            }
         </script>
     @endpush
 </x-front-layout>

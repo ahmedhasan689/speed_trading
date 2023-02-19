@@ -60,7 +60,7 @@ class Item extends Model
     }
 
     public function getRateAttribute(){
-        return $this->rates()->avg('rate');
+        return $this->rates()->avg('rate') ?? '0';
     }
     public function getIsRatedAttribute(){
         $user = auth('sanctum')->id() ?? 0;

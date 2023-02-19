@@ -83,7 +83,7 @@
                             @endforeach
                         </div>
                         <a href="{{ route('solution.index') }}" style="width: 250px" class="btn btn-primary rounded-3 d-block text-center mt-4 mx-auto px-5 py-2">
-                            <span>عرض كل الفعاليات</span>
+                            <span>عرض كل الحلول</span>
                             <span class="arrow ms-2">&#129128;</span>
                         </a>
                     </div>

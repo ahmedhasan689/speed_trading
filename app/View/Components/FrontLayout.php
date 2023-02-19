@@ -5,6 +5,7 @@ namespace App\View\Components;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Item;
+use Appstract\Options\Option;
 use Illuminate\View\Component;
 
 class FrontLayout extends Component
@@ -31,7 +32,8 @@ class FrontLayout extends Component
     {
         $categories = Category::query()->with(['subs'])->where('upper_id',null)->get();
         $brands = Brand::query()->get();
+        $options = Option::query()->get();
 
-        return view('layouts.front_layout', compact('categories', 'brands'));
+        return view('layouts.front_layout', compact('categories', 'brands', 'options'));
     }
 }

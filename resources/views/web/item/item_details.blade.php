@@ -34,12 +34,18 @@
                 <p class="mb-0 fw-bold">
                     {{ $item->price }} L.E</p>
             </div>
-            <form action="#" method="POST">
-                @csrf
-                <button data-id="{{ $item->id }}" class="btn-like @if(in_array($item->id, $favorites)) active @endif">
+            @auth
+                <form action="#" method="POST">
+                    @csrf
+                    <button data-id="{{ $item->id }}" class="btn-like @if(in_array($item->id, $favorites)) active @endif">
+                        <img src="{{ asset('assets/icon/favorite-like.svg') }}" width="25">
+                    </button>
+                </form>
+            @else
+                <button onclick="event.preventDefault();" class="btn-like" data-bs-toggle="modal" data-bs-target="#loginModal">
                     <img src="{{ asset('assets/icon/favorite-like.svg') }}" width="25">
                 </button>
-            </form>
+            @endauth
             <button class="btn btn-light rounded-3">
                 <img src="{{ asset('assets/icon/share.svg') }}" width="25">
             </button>
@@ -58,19 +64,21 @@
                 {!! $item->getTranslation('details', app()->getLocale()) !!}
                 <div class="mx-auto mx-md-0" style="width: 250px;">
 
-                    <form action="{{ route('cart.store', ['id' => $item->id]) }}" method="POST">
-                        @csrf
+                    @auth
+                        <form action="{{ route('cart.store', ['id' => $item->id]) }}" method="POST">
+                            @csrf
 
-                        <button class="btn btn-primary rounded-3 py-2 px-3 mb-3 w-100">
-                            <span>إضافة للسلة</span>
-                            <img src="{{ asset('assets/icon/cart_add-.svg') }}" class="float-end" width="25">
-                        </button>
-                    </form>
+                            <button class="btn btn-primary rounded-3 py-2 px-3 mb-3 w-100">
+                                <span>إضافة للسلة</span>
+                                <img src="{{ asset('assets/icon/cart_add-.svg') }}" class="float-end" width="25">
+                            </button>
+                        </form>
+                    @endauth
 
-                        <a href="{{ route('item.compare', ['id' => $item->id]) }}" class="btn btn-light rounded-3 py-2 px-3 mb-3 w-100">
-                            <span>أضف للمقارنة</span>
-                            <img src="{{ asset('assets/icon/compare.svg') }}" class="float-end" width="25">
-                        </a>
+                    <a href="{{ route('item.compare', ['id' => $item->id]) }}" class="btn btn-light rounded-3 py-2 px-3 mb-3 w-100">
+                        <span>أضف للمقارنة</span>
+                        <img src="{{ asset('assets/icon/compare.svg') }}" class="float-end" width="25">
+                    </a>
 
                     @if( $item->user_manual )
                         <form action="{{ route('item.download') }}" method="POST">

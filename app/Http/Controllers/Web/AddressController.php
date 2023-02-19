@@ -22,13 +22,15 @@ class AddressController extends Controller
     {
         $addresses = Address::query()->where('user_id', Auth::id())->get();
 
-        $cities = City::query()->get();
+        $cities = City::query()->whereNotNull('upper_id')->get();
+
+        $governorates = City::with('cities')->whereNull('upper_id')->get();
 
         if( $request->ajax() ) {
-            return view('web.address.address-card', compact('addresses', 'cities'))->render();
+            return view('web.address.address-card', compact('addresses', 'cities', 'governorates'))->render();
         }
 
-        return view('web.address.index', compact('addresses', 'cities'));
+        return view('web.address.index', compact('addresses', 'cities', 'governorates'));
     }
 
     /**
@@ -122,5 +124,14 @@ class AddressController extends Controller
     public function destroy(Request $request)
     {
         $address = Address::query()->findOrFail($request->id)->delete();
+    }
+
+    public function getCity(Request $request)
+    {
+        $city = City::with('cities')->where('id', $request->id)->first();
+
+        return response()->json([
+            'cities' => $city->cities,
+        ]);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Favourite;
 use App\Models\Item;
 use Illuminate\Http\Request;
@@ -15,8 +17,11 @@ class SearchController extends Controller
         // Get the search value from the request
         $search = $request->search;
 
+        $categories = Category::query()->where('upper_id', null)->get();
+        $brands = Brand::query()->get();
+
         // Search in the title and body columns from the posts table
-        $items = Item::query()
+        $items = Item::query()->tableFilters()
             ->where('name', 'LIKE', "%{$search}%")
             ->get();
 
@@ -24,10 +29,10 @@ class SearchController extends Controller
 
 
         if( $request->ajax() ) {
-            return view('web.search.items-card', compact('items', 'favorites'))->render();
+            return view('web.search.items-card', compact('items', 'favorites', 'categories', 'brands'))->render();
         }
 
         // Return the search view with the resluts compacted
-        return view('web.search.index', compact('items', 'favorites', 'search'));
+        return view('web.search.index', compact('items', 'favorites', 'search', 'categories', 'brands'));
     }
 }
