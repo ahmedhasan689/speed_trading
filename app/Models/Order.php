@@ -43,7 +43,7 @@ class Order extends Model
 
     public function details()
     {
-        return $this->hasMany(OrderDetail::class,'order_id');
+        return $this->hasMany(OrderDetail::class,'order_id')->with('item');
     }
     public function address()
     {
@@ -56,13 +56,13 @@ class Order extends Model
 
 
 
-    public function getPriceAttribute(){
-        if ($this->attributes['coupon_id'] != null){
-            return $this->attributes['price'] - $this->attributes['discount'] +$this->attributes['vat'] ;
-        }
-
-        return $this->attributes['price']+$this->attributes['vat'];
-    }
+//    public function getPriceAttribute(){
+//        if ($this->attributes['coupon_id'] != null){
+//            return $this->attributes['price'] - $this->attributes['discount'] +$this->attributes['vat'] ;
+//        }
+//
+//        return $this->attributes['price']+$this->attributes['vat'];
+//    }
 
     public function getStatusAttribute(){
         if ($this->delivered_at != null){
@@ -103,6 +103,15 @@ class Order extends Model
 
         ];
 
+    }
+
+    public static function getTotalPriceAttribute($id)
+    {
+        return '0';
+//        Order::where('id', $id)
+//            ->join('items', 'items.id', '=', 'order_details.item_id')
+//            ->selectRaw('SUM(items.price*order_details.quantity) as total')
+//            ->value('total');
     }
 
 }

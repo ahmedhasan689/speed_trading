@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\ChatChannel;
 use App\Models\ChatMessage;
+use App\Models\FAQ;
 use App\Models\Page;
 use Appstract\Options\Option;
 use Illuminate\Contracts\Foundation\Application;
@@ -40,9 +41,9 @@ class PagesController extends Controller
 
     public function faqs()
     {
-        $text = Page::query()->where('title', 'faq')->first();
+        $texts = FAQ::where('language',app()->getLocale())->paginate(10);
 
-        return view('web.pages.faqs', compact('text'));
+        return view('web.pages.faqs', compact('texts'));
     }
 
     public function support()

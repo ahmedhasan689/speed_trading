@@ -5,7 +5,7 @@
                 @foreach($sliders as $slider)
                     @if( $slider->type == 'image' )
                         <a href="{{ url($slider->target_type . '/' . $slider->target_id) }}" class="swiper-slide">
-                            <img src="{{ asset('/') . $slider->image }}" alt="">
+                            <img src="{{ asset('/') . $slider->image }}" height="445" alt="">
                         </a>
                     @else
                         <a href="{{ url($slider->image) }}" class="swiper-slide">
@@ -47,7 +47,7 @@
                         @include('web.home.items_card')
 
                     </div>
-                    <a href="{{ route('brand.show', ['id' => \App\Models\brand::first()->id ] ) }}" style="width: 250px" class="btn btn-light rounded-3 d-block text-center mt-4 mx-auto px-5 py-2">
+                    <a href="{{ route('item.discount') }}" style="width: 250px" class="btn btn-light rounded-3 d-block text-center mt-4 mx-auto px-5 py-2">
                         <span class="me-auto">تصفح كل العروض</span>
                         <span class="arrow ms-2">&#129128;</span>
                     </a>
@@ -139,123 +139,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 gap-4 bg-transparent">
-                <div class="modal-header border-0 rounded-4">
-                    <p class="modal-title">ادخل بإحدى بمنصات التواصل الاجتماعي</p>
-                    <div class="d-flex">
-                        <button class="btn btn-sm btn-light rounded-3">
-                            <img src="{{ asset('assets/icon/social_google.svg') }}">
-                        </button>
-                        <button class="btn btn-sm btn-light rounded-3 ms-2">
-                            <img src="{{ asset('assets/icon/social_facebook.svg') }}">
-                        </button>
-                    </div>
-                </div>
-                <div class="modal-body bg-white rounded-4 py-5">
-                    <p class="main-title position-relative fw-bold mx-auto mb-1">أدخل بياناتك</p>
-                    <p class="sub-title-form">أو أدخل رقم الهاتف وكلمة المرور</p>
-                    <form class="px-md-4 px-1">
-                        <div class="login-errors alert text-danger d-none text-center"></div>
-                        <div class="form-floating mb-3">
-                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
-                                 src="{{ asset('assets/icon/phone-2.svg') }}">
-                            <input type="text" class="form-control rounded-3 ps-5" id="loginMobile"
-                                   placeholder="رقم الهاتف">
-                            <label class="ps-5" for="loginMobile">رقم الهاتف</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
-                                 src="{{ asset('assets/icon/password.svg') }}">
-                            <input type="text" class="form-control rounded-3 ps-5" id="loginPassword"
-                                   placeholder="كلمة المرور">
-                            <label class="ps-5" for="loginPassword">كلمة المرور</label>
-                        </div>
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary py-2 rounded-3 w-100">
-                                <span class="me-auto loginBtn">دخول</span>
-                                <span class="arrow ms-2">&#129128;</span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer flex-column border-0">
-                    <p class="text-muted">في حالة عدم تذكر كلمة المرور بإمكانك</p>
-                    <a class="text-white" href="#">إعادة تعيين كلمة المرور</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Register Modal -->
-    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 gap-4 bg-transparent">
-                <div class="modal-header border-0 rounded-4">
-                    <p class="modal-title">اشترك بإحدى بمنصات التواصل الاجتماعي</p>
-                    <div class="d-flex">
-                        <button class="btn btn-sm btn-light rounded-3">
-                            <img src="{{ asset('assets/icon/social_google.svg') }}">
-                        </button>
-                        <button class="btn btn-sm btn-light rounded-3 ms-2">
-                            <img src="{{ asset('assets/icon/social_facebook.svg') }}">
-                        </button>
-                    </div>
-                </div>
-                <div class="modal-body bg-white rounded-4 py-5">
-                    <p class="main-title position-relative fw-bold mx-auto mb-1">أدخل بياناتك</p>
-                    <p class="sub-title-form">أو أدخل بياناتك للاشتراك مع سبيد</p>
-                    <form class="px-md-4 px-1">
-
-                        <div class="register-errors alert text-danger d-none text-center"></div>
-
-                        <div class="form-floating mb-3">
-                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
-                                 src="{{ asset('assets/icon/user.svg') }}">
-                            <input type="text" class="form-control rounded-3 ps-5" id="registerName"
-                                   placeholder="الاسم">
-                            <label class="ps-5" for="registerName">الاسم</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
-                                 src="{{ asset('assets/icon/phone-2.svg') }}">
-                            <input type="text" class="form-control rounded-3 ps-5" id="registerMobile"
-                                   placeholder="رقم الهاتف">
-                            <label class="ps-5" for="registerMobile">رقم الهاتف</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
-                                 src="{{ asset('assets/icon/email.svg') }}">
-                            <input dir="rtl" type="email" class="form-control rounded-3 ps-5" id="registerEmail"
-                                   placeholder="البريد الاكتروني">
-                            <label class="ps-5" for="registerEmail">البريد الالكتروني</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
-                                 src="{{ asset('assets/icon/password.svg') }}">
-                            <input type="text" class="form-control rounded-3 ps-5" id="registerPassword"
-                                   placeholder="كلمة المرور">
-                            <label class="ps-5" for="registerPassword">كلمة المرور</label>
-                        </div>
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary py-2 rounded-3 w-100 registerBtn">
-                                <span class="me-auto">اشتراك</span>
-                                <span class="arrow ms-2">&#129128;</span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer flex-column border-0">
-                    <p class="text-muted">بتسجيل حساب جديد مع سبيد أنت توافق على</p>
-                    <a class="text-white" href="#">الشروط والاحكام</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     @push('js')
         <script>

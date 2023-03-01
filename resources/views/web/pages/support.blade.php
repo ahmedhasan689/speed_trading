@@ -28,12 +28,19 @@
                                 @if( $messages->count() > 0 )
                                     @foreach($messages as $message)
 
+
+
                                         <div class="d-flex
                                         @if( $message->from_id === $message->channel->user_id )
                                             justify-content-start
                                         @else
                                             justify-content-end
                                         @endif align-items-center gap-4 mb-3 fs-6">
+                                            @if( $message->from_id != $message->channel->user_id )
+                                                <small class="text-muted">
+                                                    {{ \Carbon\Carbon::parse($message->created_at)->format('H:i:s') }}
+                                                </small>
+                                            @endif
                                             <div class="chat-text
                                             @if( $message->from_id === $message->channel->user_id )
                                                 text-bg-light
@@ -42,9 +49,12 @@
                                             @endif rounded-3 p-2">
                                                 {{ $message->message }}
                                             </div>
-                                            <small class="text-muted">
-                                                {{ \Carbon\Carbon::parse($message->created_at)->format('H:i:s') }}
-                                            </small>
+
+                                            @if( $message->from_id === $message->channel->user_id )
+                                                <small class="text-muted">
+                                                    {{ \Carbon\Carbon::parse($message->created_at)->format('H:i:s') }}
+                                                </small>
+                                            @endif
                                         </div>
                                     @endforeach
 
@@ -65,8 +75,9 @@
 
                             <div class="chat-input">
                                 <div class="input-group flex-nowrap">
-                                    <input type="text" class="form-control border-0 py-2" placeholder="اكتب رسالتك...">
-                                    <button class="input-group-text bg-white border-0">
+                                    <input type="hidden" class="form-control border-0 py-2" id="channelId" name="channel_id" value="{{ $channel->id }}">
+                                    <input type="text" class="form-control border-0 py-2 message" id="message" placeholder="اكتب رسالتك...">
+                                    <button type="submit" class="input-group-text bg-white border-0 sendBtn">
                                         <img src="{{ asset('assets/icon/start.svg') }}" width="20">
                                     </button>
                                 </div>
@@ -78,4 +89,43 @@
             </div>
         </div>
     </section>
+
+    @push('js')
+        <script>
+            $(document).on('click', '.sendBtn', function(e) {
+                e.preventDefault();
+
+                var message = $('#message').val(),
+                    channel_id = $('#channelId').val();
+
+                $.ajax({
+                    url: "{{ route('chat.store') }}",
+                    type: "GET",
+                    data: {
+                        message: message,
+                        channel_id: channel_id,
+                    },
+                    success: function(data) {
+                        $('.chat-box').append(`
+                            <div class="d-flex justify-content-start align-items-center gap-4 mb-3 fs-6">
+                                <div class="chat-text text-bg-light rounded-3 p-2">
+                                   `+ data.message.message +`
+                                </div>
+                                <small class="text-muted">
+                                    `+ data.time +`
+                                </small>
+                            </div>
+                        `)
+
+                        $('#message').val('');
+
+                    },
+                    error: function(data) {
+
+                    }
+
+                });
+            });
+        </script>
+    @endpush
 </x-front-layout>

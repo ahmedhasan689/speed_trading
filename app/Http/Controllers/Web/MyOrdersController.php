@@ -27,11 +27,15 @@ class MyOrdersController extends Controller
     {
         $order_done = Order::with(['user', 'details', 'address', 'provider'])
             ->where('user_id', Auth::id())
-            ->where('payment_status', 1)->limit(5)->first();
+            ->whereNotNull('delivered_at')
+            ->limit(5)->get();
+
 
         $under_order = Order::with(['user', 'details', 'address', 'provider'])
             ->where('user_id', Auth::id())
-            ->where('payment_status', 0)->limit(5)->first();
+            ->whereNull('delivered_at')
+            ->limit(5)
+            ->get();
 
 
         return view('web.my_order.index', compact('order_done', 'under_order'));
@@ -82,7 +86,7 @@ class MyOrdersController extends Controller
             $order = Order::create([
                 'user_id' => Auth::id(),
                 'provider_id' => null,
-                'address_id' => Auth::user()->addresses()->where('is_primary', 1)->first()->id,
+                'address_id' => $request->address,
                 'vat' => $vat->value,
                 'coupon_id' => $coupon_exists ? $coupon_exists->coupon->id : null,
                 'shipping' => 2,
@@ -128,11 +132,17 @@ class MyOrdersController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $order = Order::query()->with(['details'])->findOrFail($id);
+
+        if( $request->ajax() ) {
+            return view('web.my_order.show_details', compact('order'))->render();
+        }
+
+        return view('web.my_order.show', compact('order'));
     }
 
     /**
@@ -162,10 +172,16 @@ class MyOrdersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $order = Order::findOrFail($id);
+
+        $order->details()->delete();
+
+        $order->delete();
+
+        return redirect()->route('my_order.index');
     }
 }

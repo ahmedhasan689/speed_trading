@@ -20,19 +20,31 @@
                             <h6 class="fw-bold">لم تجد إجابة لسؤالك؟</h6>
                             <small>تواصل مع فريق الدعم الفنّي الخاص بسبيد</small>
                         </div>
-                        <a href="{{ route('page.support') }}" class="btn btn-light mt-4 py-2 rounded-3">
-                            <span>الدعم الفني</span>
-                            <img src="{{ asset('assets/icon/technical_support.svg') }}" class="float-end" width="25">
-                        </a>
+                        @auth
+                            <a href="{{ route('page.support') }}" class="btn btn-light mt-4 py-2 rounded-3">
+                                <span>الدعم الفني</span>
+                                <img src="{{ asset('assets/icon/technical_support.svg') }}" class="float-end" width="25">
+                            </a>
+                        @else
+                            <a href="#" class="btn btn-light mt-4 py-2 rounded-3" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                <span>الدعم الفني</span>
+                                <img src="{{ asset('assets/icon/technical_support.svg') }}" class="float-end" width="25">
+                            </a>
+                        @endauth
+
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div class="mb-5">
-                        <h6 class="faq-title">الخدمات المصرفية والمالية</h6>
-                        <p class="fs-6">
-                            {{ $text->getTranslation('content', 'ar') }}
-                        </p>
-                    </div>
+                    @foreach( $texts as $text )
+                        <div class="mb-5">
+                            <h6 class="faq-title">
+                                {{ $text->question }}
+                            </h6>
+                            <p class="fs-6">
+                                {{ $text->answer }}
+                            </p>
+                        </div>
+                    @endforeach
 
                 </div>
             </div>

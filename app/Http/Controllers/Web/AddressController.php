@@ -134,4 +134,13 @@ class AddressController extends Controller
             'cities' => $city->cities,
         ]);
     }
+
+    public function getAddress(Request $request)
+    {
+        $address = Address::where('id', $request->id)->first();
+
+        return response()->json([
+            'address' => $address,
+        ]);
+    }
 }

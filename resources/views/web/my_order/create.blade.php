@@ -127,6 +127,34 @@
         </div>
     </div>
 
+    <div class="modal fade" id="addressChange" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 gap-4 bg-transparent">
+                <div class="modal-body bg-white rounded-4 py-5">
+                    <p class="main-title position-relative fw-bold mx-auto mb-4">العنوان</p>
+                    <form class="px-md-4 px-1">
+                        <div class="row g-2">
+                            <div class="col-md">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select addressChange" id="addressChange">
+                                        <option>اختر العنوان</option>
+                                        @foreach( auth()->user()->addresses as $address )
+                                            <option value="{{ $address->id }}">
+                                                {{ $address->name }}
+                                            </option>
+                                        @endforeach
+
+                                    </select>
+                                    <label for="floatingSelectGrid">المحافظة</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 gap-4 bg-transparent">
@@ -346,6 +374,28 @@
                 })
 
             })
+
+            $(document).on('change', '#addressChange', function(e) {
+                var id = $(this).val();
+
+                $.ajax({
+                    url: "{{ route('address.getAddress') }}",
+                    type: "GET",
+                    data: {
+                        id: id,
+                    },
+                    success: function(data){
+                        $('.setAddress').text(data.address.address);
+
+                        $('#address').val( data.address.id );
+
+                        $('#addressChange').modal('hide');
+                    },
+                    error: function(data){
+
+                    },
+                })
+            });
         </script>
     @endpush
 

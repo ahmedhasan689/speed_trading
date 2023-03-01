@@ -43,7 +43,9 @@
                     </form>
 
                     <span class="nav-phone position-relative me-3 d-none d-lg-flex">
-                        <span>16454</span>
+                        <span>
+                            {{ $options->where('key', 'phone')->first()->value }}
+                        </span>
                         <img src="{{ asset('assets/icon/phone.svg') }}" alt="">
                     </span>
 
@@ -300,7 +302,9 @@
                     </form>
 
                     <span class="nav-phone position-relative me-3 d-none d-lg-flex">
-                    <span>16454</span>
+                    <span>
+                        {{ $options->where('key', 'phone')->first()->value }}
+                    </span>
                     <img src="{{ asset('assets/icon/phone.svg') }}" alt="">
                 </span>
 
@@ -453,7 +457,7 @@
                                     <small class="fw-bold">الأسئلة الشائعة</small>
                                     <small class="float-end d-none">&#129128;</small>
                                 </a></li>
-                            <li><a class="dropdown-item rounded-3 py-3" href="{{ route('page.support') }}">
+                            <li><a class="dropdown-item rounded-3 py-3" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
                                     <img src="{{ asset('assets/icon/technical_support.svg') }}" class="me-3" width="20">
                                     <small class="fw-bold">الدعم الفنّي</small>
                                     <small class="float-end d-none">&#129128;</small>
@@ -709,7 +713,7 @@
                         <label class="ps-5" for="registerPassword">كلمة المرور</label>
                     </div>
                     <div class="col">
-                        <button type="submit" class="btn btn-primary py-2 rounded-3 w-100 registerBtn">
+                        <button type="submit" class="btn btn-primary py-2 rounded-3 w-100 registerBtn" id="registerBtn">
                             <span class="me-auto">اشتراك</span>
                             <span class="arrow ms-2">&#129128;</span>
                         </button>
@@ -785,6 +789,10 @@
 <script src="{{ asset('assets/js/swiper.min.js') }}"></script>
 <script src="{{ asset('assets/js/app.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{--<script--}}
+{{--    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"--}}
+{{--    defer--}}
+{{--></script>--}}
 
 <script>
     // Login Functionality
@@ -822,7 +830,7 @@
     })
 
     // Register Functionality
-    $('.registerBtn').click(function (e) {
+    $(document).on('click', '#registerBtn', function(e) {
         e.preventDefault();
         var name = $('#registerName').val(),
             mobile = $('#registerMobile').val(),
@@ -856,8 +864,7 @@
                 });
             }
         });
-    })
-
+    });
     // Contact Functionality
     $(document).on('click', '.contactBtn', function(e) {
         e.preventDefault();

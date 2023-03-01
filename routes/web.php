@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\AddressController;
 use App\Http\Controllers\Web\BrandsController;
 use App\Http\Controllers\Web\CartController;
 use App\Http\Controllers\Web\CategoriesController;
+use App\Http\Controllers\Web\ChatController;
 use App\Http\Controllers\Web\CompanyController;
 use App\Http\Controllers\Web\ContactUsController;
 use App\Http\Controllers\Web\CouponController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Web\MyOrdersController;
 use App\Http\Controllers\Web\MyPointController;
 use App\Http\Controllers\Web\PagesController;
 use App\Http\Controllers\Web\PaymentController;
+use App\Http\Controllers\Web\RateController;
 use App\Http\Controllers\Web\RoomsController;
 use App\Http\Controllers\Web\SearchController;
 use App\Http\Controllers\Web\SolutionController;
@@ -236,6 +238,7 @@ Route::namespace('\App\Http\Controllers\Web')->group(function () {
             Route::get('/create', 'create')->name('create');
             Route::post('/', 'store')->name('store');
             Route::get('/{id}', 'show')->name('show');
+            Route::delete('/{id}', 'destroy')->name('delete');
         });
     // End My Orders Route
 
@@ -361,6 +364,7 @@ Route::namespace('\App\Http\Controllers\Web')->group(function () {
             Route::get('/update-address', 'update')->name('update');
             Route::get('/delete-address', 'destroy')->name('delete');
             Route::get('/get-city', 'getCity')->name('getCity');
+            Route::get('/get-address', 'getAddress')->name('getAddress');
         });
     // End Address Route
 
@@ -389,6 +393,9 @@ Route::namespace('\App\Http\Controllers\Web')->group(function () {
         ->group(function() {
             Route::get('/', 'index')->name('index');
             Route::post('/add-to-cart/{id}', 'store')->name('store');
+            Route::get('/get-item', 'getItem')->name('getItem');
+            Route::get('/loss-quantity', 'lossQuantity')->name('lossQuantity');
+            Route::get('/delete-item', 'destroy')->name('delete');
             Route::get('/{id}', 'show')->name('show');
         });
     // End Cart Route
@@ -398,6 +405,7 @@ Route::namespace('\App\Http\Controllers\Web')->group(function () {
         ->prefix('items')
         ->as('item.')
         ->group(function() {
+            Route::get('/discount', 'discount')->name('discount');
             Route::post('/download', 'download')->name('download');
             Route::get('/{id}', 'show')->name('show');
             Route::get('/compare/{id}', 'compare')->name('compare');
@@ -431,9 +439,21 @@ Route::namespace('\App\Http\Controllers\Web')->group(function () {
         ->as('payment.')
         ->group(function() {
             Route::get('/paymob/{id}', 'credit')->name('create');
+            Route::get('/callback', 'callback')->name('callback');
         });
     // End Payment Route
 
+    // Start Chat Route
+    Route::controller(ChatController::class)
+        ->prefix('chat')
+        ->as('chat.')
+        ->group(function() {
+            Route::get('/', 'store')->name('store');
+        });
+    // End Chat Route
+
+    // Rate Controller
+    Route::get('/rate/store', [RateController::class, 'store'])->name('rate.store');
 
     // Route Coupon
     Route::get('/set-coupon', [CouponController::class, 'store'])->name('coupon.store');

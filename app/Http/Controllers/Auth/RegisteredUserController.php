@@ -51,8 +51,6 @@ class RegisteredUserController extends Controller
     }elseif( $request->type ){
         // This Is Means That The Type OfThis User Is " Service Provider "
 
-//        dd($request->all());
-
         $company_tax_number = null;
         if ($request->hasFile('company_tax_number')) {
             $file = $request->file('company_tax_number');
@@ -95,7 +93,7 @@ class RegisteredUserController extends Controller
     }else{ // This Is Means That The Type OfThis User Is " Client "
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', Rules\Password::defaults()],
             'mobile' => ['required', 'numeric']
         ]);

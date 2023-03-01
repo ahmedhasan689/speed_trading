@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ItemRequest;
+use App\Models\Favourite;
 use App\Models\Item;
 use App\Models\ItemImage;
+use App\Models\ItemSolution;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -139,6 +141,21 @@ class ItemController extends Controller
     {
 
         $item= Item::findOrFail($id);
+
+        $item->images()->delete();
+        $item->rates()->delete();
+        $solutions = ItemSolution::where('item_id', $item->id())->get();
+
+        foreach ($solutions as $s_item) {
+            $s_item->delete();
+        }
+
+        $favorites = Favourite::where('item_id', $item->id)->get();
+
+        foreach ($favorites as $f_item) {
+            $f_item->delete();
+        }
+
         $item->delete();
         toast(__('Deleted successfully'),'success');
         return redirect()->back();

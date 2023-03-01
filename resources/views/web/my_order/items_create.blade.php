@@ -76,10 +76,10 @@
             </div>
             <hr class="border">
             @if( auth()->user()->addresses()->where('is_primary', 1)->first() )
-                <a class="px-3 btn w-100 d-flex text-start justify-content-between">
+                <a class="px-3 btn w-100 d-flex text-start justify-content-between" data-bs-toggle="modal" data-bs-target="#addressChange">
                     <div>
                         <small class="d-block">العنوان</small>
-                        <small class="fw-bold text-muted">
+                        <small class="fw-bold text-muted setAddress">
                             {{ auth()->user()->addresses()->where('is_primary', 1)->first()->address }}
                         </small>
                     </div>
@@ -111,11 +111,11 @@
         <a href="{{ route('page.terms') }}" class="text-main-color fw-bold text-decoration-none">الشروط والاحكام</a>
     </span>
 
-{{--    @dd( auth()->user()->addresses()->where('is_primary', 1)->exists() )--}}
     <form action="{{ route('my_order.store') }}" method="POST">
         @csrf
 
         <input type="hidden" value="" name="type" id="type">
+        <input type="hidden" value="{{ auth()->user()->addresses()->where('is_primary', 1)->first() }}" name="address" id="address">
         <button class="btn btn-primary py-2 rounded-4" style="width: 200px;" @if( !auth()->user()->addresses()->where('is_primary', 1)->first() ) disabled @endif>
             <span>تأكيد الطلب</span>
             <img src="{{ asset('assets/icon/arrow_next.svg') }}" class="float-end">

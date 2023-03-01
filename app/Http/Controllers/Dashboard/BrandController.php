@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\BrandRequest;
 use App\Models\Brand;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -126,6 +127,15 @@ class BrandController extends Controller
     {
 
         $brand= Brand::findOrFail($id);
+
+        $items = Item::where('brand_id', $brand->id)->get();
+
+        foreach ($items as $item) {
+            $item->update([
+                'brand_id' => null,
+            ]);
+        }
+
         $brand->delete();
         toast(__('Deleted successfully'),'success');
         return redirect()->back();

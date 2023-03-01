@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Translatable\HasTranslations;
 
 class OrderDetail extends Model
@@ -26,6 +27,8 @@ class OrderDetail extends Model
     public function getTotalAttribute(){
         return ($this->price * $this->quantity);
     }
+
+
 
 
 }

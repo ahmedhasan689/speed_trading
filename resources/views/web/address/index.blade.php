@@ -75,16 +75,10 @@
                         <div class="form-floating mb-3">
                             <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
                                  src="{{ asset('assets/icon/gps.svg') }}" width="25">
-                            <input type="text" name="lan" class="form-control rounded-3 ps-5" id="addressLan" placeholder="تحديد الموقع">
-                            <label class="ps-5" for="addressLan">خطوط الطول</label>
+                            <input type="email" class="form-control rounded-3 ps-5" id="floatingInput" placeholder="تحديد الموقع">
+                            <label class="ps-5" for="floatingInput">تحديد الموقع</label>
                         </div>
-
-                        <div class="form-floating mb-3">
-                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
-                                 src="{{ asset('assets/icon/gps.svg') }}" width="25">
-                            <input type="text" name="lat" class="form-control rounded-3 ps-5" id="addressLat" placeholder="تحديد الموقع">
-                            <label class="ps-5" for="addressLat">خطوط العرض</label>
-                        </div>
+                        <button class="btn btn-primary mb-2" onclick="event.preventDefault()" data-bs-toggle="modal" data-bs-target="#map">اختيار العنوان</button>
                         <div class="form-check mb-3">
                             <input class="form-check-input" name="is_primary" type="checkbox" value="" id="addressPrimary">
                             <label class="form-check-label" for="addressPrimary">
@@ -98,6 +92,19 @@
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="map" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 gap-4 bg-transparent">
+                <div class="modal-body bg-white rounded-4 py-5">
+                    <p class="main-title position-relative fw-bold mx-auto mb-4">العنوان</p>
+
+                    <div id="map" style="height:400px; width: 800px;" class="my-3"></div>
+
                 </div>
             </div>
         </div>
@@ -309,6 +316,20 @@
                     }
                 })
             });
+        </script>
+
+{{--        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKaKa9739q7BEV5Ee4P-6Rs6STNkUC7wM&callback=initMap"></script>--}}
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBC5xQic2yIjezsM1CcPNSsMY-KCRQcGw&callback=initMap"></script>
+
+        <script>
+            let map;
+            function initMap() {
+                map = new google.maps.Map(document.getElementById("map"), {
+                    center: {lat: -34.397, lng: 150.644},
+                    zoom: 8,
+                    scrollwheel: true,
+                })
+            }
         </script>
     @endpush
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -125,6 +126,15 @@ class CategoryController extends Controller
     {
 
         $category= Category::findOrFail($id);
+
+        $items = Item::where('category_id', $category->id)->get();
+
+        foreach ($items as $item) {
+            $item->update([
+                'category_id' => null,
+            ]);
+        }
+
         $category->delete();
         toast(__('Deleted successfully'),'success');
         return redirect()->back();

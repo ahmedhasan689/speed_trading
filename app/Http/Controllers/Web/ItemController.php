@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Favourite;
 use App\Models\Item;
 use Illuminate\Contracts\Foundation\Application;
@@ -34,6 +36,28 @@ class ItemController extends Controller
         }
 
         return view('web.item.show', compact('item', 'favorites'));
+    }
+
+    /**
+     * @param Request $request
+     * @return Application|Factory|View|string
+     */
+    public function discount(Request $request)
+    {
+        // Get Item
+        $items = Item::query()->tableFilters()->whereNotNull('old_price')->orderBy('created_at', 'desc')->get();
+
+        $categories = Category::query()->where('upper_id', null)->get();
+        $brands = Brand::query()->get();
+
+        $favorites = Favourite::query()->with(['user', 'favourable'])->where('user_id', Auth::id())->pluck('favourable_id')->toArray();
+
+
+        if ( $request->ajax() ) {
+            return view('web.category.items-card', compact('items', 'favorites', 'categories', 'brands'))->render();
+        }
+
+        return view('web.item.discount', compact('items', 'favorites', 'categories', 'brands'));
     }
 
     public function compare($id)
