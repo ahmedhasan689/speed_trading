@@ -306,7 +306,7 @@ body {
 }
 .offer-product-card img.card-img-top, .offer-product img{
   width: 60%;
-  margin: 1rem auto;
+  margin: 2rem auto;
 }
 
 
@@ -517,7 +517,7 @@ span.badge.p-2.rounded-3.text-main-color {
 }
 
 .floating-file-input input{
-  display: none; 
+  display: none;
 }
 
 .floating-file-input label{
@@ -683,4 +683,8 @@ td{
 }
 .rating:hover>input:checked~label:before {
   opacity: 0.4
+}
+
+.pac-container {
+    z-index: 1055;
 }

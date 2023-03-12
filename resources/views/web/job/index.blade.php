@@ -72,7 +72,7 @@
                                 <div class="w-100">
                                     <h6 class="fw-bold mb-4">
                                         <img src="{{ asset('assets/icon/symbol_r.svg') }}" class="me-3" width="25">التقدم للوظيفة</h6>
-                                    <form action="{{ route('job.store') }}" method="POST" class="px-md-4 px-1">
+                                    <form action="{{ route('job.store') }}" method="POST" class="px-md-4 px-1" enctype="multipart/form-data">
                                         @csrf
 
                                         <input type="hidden" value="{{ $jobs->first()->id }}" name="job_id">
@@ -130,7 +130,7 @@
                                         <div class="floating-file-input mb-3">
                                             <input type="file" name="cv" id="cvFile" class="@error('age') is-invalid @enderror">
                                             <label for="cvFile" class="w-100 rounded-3">
-                                                <span>السيرة الذاتية</span>
+                                                <span id="file-name">السيرة الذاتية</span>
                                                 <img src="{{ asset('assets/icon/upload.svg') }}" class="float-end" width="25">
                                             </label>
                                             @error('cv')
@@ -156,6 +156,8 @@
 
     @push('js')
         <script>
+
+
             $(document).on('click', '.jobCard', function(e) {
                 e.preventDefault();
 
@@ -247,9 +249,9 @@
                                         </div>
 
                                         <div class="floating-file-input mb-3">
-                                            <input type="file" id="cvFile" class="@error('cv') is-invalid @enderror">
-                                            <label for="cvFile" name="cv" class="w-100 rounded-3">
-                                                <span>السيرة الذاتية</span>
+                                            <input type="file" name="cv" id="cvFile" class="@error('cv') is-invalid @enderror">
+                                            <label for="cvFile" class="w-100 rounded-3">
+                                                <span id="file-name">السيرة الذاتية</span>
                                                 <img src="{{ asset('assets/icon/upload.svg') }}" class="float-end" width="25">
                                                 @error('cv')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -280,6 +282,10 @@
                     },
                 })
             })
+
+            $("#cvFile").change(function(){
+                $("#file-name").text(this.files[0].name);
+            });
         </script>
     @endpush
 </x-front-layout>

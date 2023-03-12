@@ -32,7 +32,7 @@
                             @csrf
 
                             <button class="btn btn-sm btn-outline-light">
-                                <img src="{{ asset('assets/icon/cart_add.svg') }}">
+                                <img @if( !in_array($item->id, $cart) ) src="{{ asset('assets/icon/cart_add.svg') }}" @else src="{{ asset('assets/icon/cart_added.svg') }}" @endif>
                             </button>
                         </form>
                     @else

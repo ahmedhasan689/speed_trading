@@ -14,7 +14,8 @@ function twilioSMS($number,$message)
         $client = new \Twilio\Rest\Client($account_sid, $auth_token);
         $client->messages->create($receiverNumber, [
             'from' => $twilio_number,
-            'body' => $message]);
+            'body' => $message
+        ]);
 
         return['status'=>1,'message'=> __('SMS Sent Successfully.')];
 

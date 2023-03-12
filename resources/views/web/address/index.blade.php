@@ -75,10 +75,33 @@
                         <div class="form-floating mb-3">
                             <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
                                  src="{{ asset('assets/icon/gps.svg') }}" width="25">
-                            <input type="email" class="form-control rounded-3 ps-5" id="floatingInput" placeholder="تحديد الموقع">
-                            <label class="ps-5" for="floatingInput">تحديد الموقع</label>
+                            <input type="text" class="form-control rounded-3 ps-5" id="location" placeholder="تحديد الموقع" style="z-index: 1100">
+                            <label class="ps-5" for="location">تحديد الموقع</label>
                         </div>
-                        <button class="btn btn-primary mb-2" onclick="event.preventDefault()" data-bs-toggle="modal" data-bs-target="#map">اختيار العنوان</button>
+                        <div class="row g-2">
+                            <div class="col-md">
+                                <div class="form-floating mb-3">
+                                    <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                                         src="{{ asset('assets/icon/gps.svg') }}" width="25">
+                                    <input type="text" class="form-control rounded-3 ps-5" id="lat" placeholder="تحديد الموقع" style="pointer-events: none">
+                                    <label class="ps-5" for="lat">Latitude</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-floating mb-3">
+                                    <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                                         src="{{ asset('assets/icon/gps.svg') }}" width="25">
+                                    <input type="text" class="form-control rounded-3 ps-5" id="lng" placeholder="تحديد الموقع" style="pointer-events: none">
+                                    <label class="ps-5" for="lng">Longitude</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div id="map-canvas">
+
+                            </div>
+                        </div>
                         <div class="form-check mb-3">
                             <input class="form-check-input" name="is_primary" type="checkbox" value="" id="addressPrimary">
                             <label class="form-check-label" for="addressPrimary">
@@ -97,18 +120,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="map" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 gap-4 bg-transparent">
-                <div class="modal-body bg-white rounded-4 py-5">
-                    <p class="main-title position-relative fw-bold mx-auto mb-4">العنوان</p>
-
-                    <div id="map" style="height:400px; width: 800px;" class="my-3"></div>
-
-                </div>
-            </div>
-        </div>
-    </div>
 
     @push('js')
         <script>
@@ -157,8 +168,8 @@
                     address = $('#address').val(),
                     city_id = $('.addressCity').val(),
                     governorate_id = $('#addressGovernorate').val(),
-                    lat = $('#addressLat').val(),
-                    lng = $('#addressLan').val();
+                    lat = $('#lat').val(),
+                    lng = $('#lng').val();
 
                     if( $('#addressPrimary').is(':checked') ) {
                         var primary = 1;
@@ -318,19 +329,29 @@
             });
         </script>
 
-{{--        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKaKa9739q7BEV5Ee4P-6Rs6STNkUC7wM&callback=initMap"></script>--}}
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBC5xQic2yIjezsM1CcPNSsMY-KCRQcGw&callback=initMap"></script>
 
-        <script>
-            let map;
-            function initMap() {
-                map = new google.maps.Map(document.getElementById("map"), {
-                    center: {lat: -34.397, lng: 150.644},
-                    zoom: 8,
-                    scrollwheel: true,
+        <script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBC5xQic2yIjezsM1CcPNSsMY-KCRQcGw&libraries=places" style="z-index: 1100;"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                var autocomplete;
+                var id = 'location';
+
+                autocomplete = new google.maps.places.Autocomplete((document.getElementById(id)), {
+
+                    types:['geocode'],
                 })
-            }
+                google.maps.event.addListener(autocomplete,'place_changed', function() {
+
+                    var place = autocomplete.getPlace();
+                    $("#lat").val(place.geometry.location.lat())
+                    $("#lng").val(place.geometry.location.lng())
+
+                })
+            });
         </script>
+
     @endpush
 
 </x-front-layout>

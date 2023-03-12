@@ -15,6 +15,8 @@ class JobsController extends Controller
         $jobs = Job::query()->get();
         $cities = City::query()->get();
 
+
+
         return view('web.job.index', compact('jobs', 'cities'));
     }
 
@@ -29,15 +31,12 @@ class JobsController extends Controller
             'cv' => 'required',
         ]);
 
-        JobApplication::create([
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'age' => $request->age,
-            'city_id' => $request->city_id,
-            'cv' => $request->cv,
-            'job_id' => $request->job_id,
-        ]);
+        $requests = $request->all();
+        $requests['cv'] = saveImage($request->cv, 'cv');
+
+        JobApplication::create($requests);
+        toastr()->success('تم التقدم للوظيفة بنجاح');
+
 
         return redirect()->back();
     }

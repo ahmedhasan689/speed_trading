@@ -3,9 +3,12 @@
 namespace App\View\Components;
 
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Notification;
 use Appstract\Options\Option;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class FrontLayout extends Component
@@ -34,6 +37,9 @@ class FrontLayout extends Component
         $brands = Brand::query()->get();
         $options = Option::query()->get();
 
-        return view('layouts.front_layout', compact('categories', 'brands', 'options'));
+        $notifications = Notification::query()->where('notifiable_id', Auth::id())->get();
+        $cart = Cart::query()->where('user_id', Auth::id())->count();
+
+        return view('layouts.front_layout', compact('categories', 'brands', 'options', 'notifications', 'cart'));
     }
 }

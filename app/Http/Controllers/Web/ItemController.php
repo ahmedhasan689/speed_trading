@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Favourite;
 use App\Models\Item;
@@ -52,12 +53,14 @@ class ItemController extends Controller
 
         $favorites = Favourite::query()->with(['user', 'favourable'])->where('user_id', Auth::id())->pluck('favourable_id')->toArray();
 
+        $cart = Cart::query()->where('user_id', Auth::id())->pluck('item_id')->toArray();
+
 
         if ( $request->ajax() ) {
-            return view('web.category.items-card', compact('items', 'favorites', 'categories', 'brands'))->render();
+            return view('web.category.items-card', compact('items', 'favorites', 'categories', 'brands', 'cart'))->render();
         }
 
-        return view('web.item.discount', compact('items', 'favorites', 'categories', 'brands'));
+        return view('web.item.discount', compact('items', 'favorites', 'categories', 'brands', 'cart'));
     }
 
     public function compare($id)

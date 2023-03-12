@@ -50,6 +50,12 @@
     {{input_error($errors,'content.ar')}}
 </div>
 <div class="form-group py-1 col-md-12">
+    <label for="formInputRole"> {{ __('Location') }}</label>
+    <br>
+    {!! Form::text('location', null,[ 'class'=>'form-control col', disable_on_show()]) !!}
+    {{ input_error($errors,'location' )}}
+</div>
+<div class="form-group py-1 col-md-12">
     <label for="formInputRole"> {{__('Date')}}</label>
     <br>
     {!! Form::text('date', null,['class'=>'form-control col datepicker',disable_on_show()]) !!}

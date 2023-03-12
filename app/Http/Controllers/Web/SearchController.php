@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Favourite;
 use App\Models\Item;
@@ -27,12 +28,13 @@ class SearchController extends Controller
 
         $favorites = Favourite::query()->with(['user', 'favourable'])->where('user_id', Auth::id())->pluck('favourable_id')->toArray();
 
+        $cart = Cart::query()->where('user_id', Auth::id())->pluck('item_id')->toArray();
 
         if( $request->ajax() ) {
-            return view('web.search.items-card', compact('items', 'favorites', 'categories', 'brands'))->render();
+            return view('web.search.items-card', compact('items', 'favorites', 'categories', 'brands', 'cart'))->render();
         }
 
         // Return the search view with the resluts compacted
-        return view('web.search.index', compact('items', 'favorites', 'search', 'categories', 'brands'));
+        return view('web.search.index', compact('items', 'favorites', 'search', 'categories', 'brands', 'cart'));
     }
 }

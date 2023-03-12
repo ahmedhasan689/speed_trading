@@ -4,7 +4,7 @@
             <div class="position-absolute" style="top:10px; right:10px">
                 <img src="{{ asset('assets/icon/rating.svg') }}">
                 <small>
-                    {{ $item->rate ?? '0' }}
+                    {{ round($item->rate, 1) ?? '0' }}
                 </small>
             </div>
             <div class="text-center">
@@ -24,13 +24,15 @@
                             </button>
                         </form>
                         <span dir="ltr" class="fw-bold">{{ $item->price }} <sup>L.E</sup></span>
+
                         <form action="{{ route('cart.store', ['id' => $item->id]) }}" method="POST">
                             @csrf
 
                             <button class="btn btn-sm btn-outline-light">
-                                <img src="{{ asset('assets/icon/cart_add.svg') }}">
+                                <img @if( !in_array($item->id, $cart) ) src="{{ asset('assets/icon/cart_add.svg') }}" @else src="{{ asset('assets/icon/cart_added.svg') }}" @endif>
                             </button>
                         </form>
+
                     @else
                         <button onclick="event.preventDefault();" class="btn-like" data-bs-toggle="modal" data-bs-target="#loginModal">
                             <img src="{{ asset('assets/icon/favorite-like.svg') }}" width="25">

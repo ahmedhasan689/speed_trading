@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ app()->getLocale() == 'ar' ? "ar" : "en" }}" dir="{{ app()->getLocale() == 'ar' ? "rtl" : "ltr" }}">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}"/>
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.rtl.min.css') }}">
+{{--    <meta name="csrf-token" content="{{ csrf_token() }}"/>--}}
+    @if( app()->getLocale() == 'ar' )
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.rtl.min.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    @endif
     <link rel="stylesheet" href="{{ asset('assets/css/swiper.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <title>
@@ -16,7 +20,7 @@
 </head>
 
 <body>
-
+{{--@dd( app()->getLocale() )--}}
 @auth
     <header class="sticky-top navbar-expand-lg bg-white nav-shadow">
         <nav class="navbar">
@@ -55,34 +59,35 @@
                             <img src="{{ asset('assets/icon/notifications.svg') }}" alt="">
                         </a>
                         <ul class="dropdown-menu border-0 rounded-3 nav-shadow dropdown-menu-end"
-                            aria-labelledby="dropdownMenuClickableOutside">
+                            aria-labelledby="dropdownMenuClickableOutside" >
                             <div class="notify-header px-2">
                                 <p class="fw-bold">التنبيهات</p>
                             </div>
 
-                            <div class="list-group list-group-flush px-2">
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div>
-                                        <p class="mb-0 notify-text">إشعار جماعي من مدیر التطبیق</p>
-                                        <small class="text-muted">منذ ساعة</small>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="list-group list-group-flush px-2">
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div>
-                                        <p class="mb-0 notify-text">إشعار جماعي من مدیر التطبیق</p>
-                                        <small class="text-muted">منذ ساعة</small>
-                                    </div>
-                                </a>
-                            </div>
+                            @foreach( $notifications as $notification )
+                                <div class="list-group list-group-flush px-2">
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div>
+                                            <p class="mb-0 notify-text">
+                                                {{ $notification->title }}
+                                            </p>
+                                            <small class="text-muted">
+                                                {{ $notification->created_at->diffForHumans() }}
+                                            </small>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
                         </ul>
                     </div>
 
                     <a href="{{ route('my_favorite.index') }}" class="d-none d-lg-flex">
                         <img src="{{ asset('assets/icon/favorite.svg') }}" alt="">
                     </a>
-                    <a href="{{ route('cart.index') }}">
+                    <a href="{{ route('cart.index') }}" class="position-relative text-decoration-none">
+                        <span class="position-absolute top-0 start-100 translate-middle text-bg-primary badge rounded-circle" style="padding: 0.25em 0.50em;">
+                            {{ $cart }}
+                        </span>
                         <img src="{{ asset('assets/icon/cart_nav.svg') }}" alt="">
                     </a>
                     <button class="btn p-0 d-flex d-lg-none cursor-pointer" data-bs-toggle="offcanvas"
@@ -105,31 +110,41 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">حسابي</a>
                         <ul class="dropdown-menu rounded-3 px-2">
-                            <li><a class="dropdown-item rounded-3 py-3" href="{{ route('account.index') }}">
+                            <li>
+                                <a class="dropdown-item rounded-3 py-3" href="{{ route('account.index') }}">
                                     <img src="{{ asset('assets/icon/user.svg') }}" class="me-3" width="20">
                                     <small class="fw-bold">حسابي</small>
                                     <small class="float-end d-none">&#129128;</small>
-                                </a></li>
-                            <li><a class="dropdown-item rounded-3 py-3" href="{{ route('my_order.index') }}">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item rounded-3 py-3" href="{{ route('my_order.index') }}">
                                     <img src="{{ asset('assets/icon/orders.svg') }}" class="me-3" width="20">
                                     <small class="fw-bold">طلباتي</small>
                                     <small class="float-end d-none">&#129128;</small>
-                                </a></li>
-                            <li><a class="dropdown-item rounded-3 py-3" href="{{ route('my_point.index') }}">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item rounded-3 py-3" href="{{ route('my_point.index') }}">
                                     <img src="{{ asset('assets/icon/points.svg') }}" class="me-3" width="20">
                                     <small class="fw-bold">نقاطي</small>
                                     <small class="float-end d-none">&#129128;</small>
-                                </a></li>
-                            <li><a class="dropdown-item rounded-3 py-3" href="{{ route('address.index') }}">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item rounded-3 py-3" href="{{ route('address.index') }}">
                                     <img src="{{ asset('assets/icon/place.svg') }}" class="me-3" width="20">
                                     <small class="fw-bold">عناويني</small>
                                     <small class="float-end d-none">&#129128;</small>
-                                </a></li>
-                            <li><a class="dropdown-item rounded-3 py-3" href="{{ route('my_favorite.index') }}">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item rounded-3 py-3" href="{{ route('my_favorite.index') }}">
                                     <img src="{{ asset('assets/icon/favorite-3.svg') }}" class="me-3" width="20">
                                     <small class="fw-bold">المفضلة</small>
                                     <small class="float-end d-none">&#129128;</small>
-                                </a></li>
+                                </a>
+                            </li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
@@ -187,21 +202,27 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">خدمات سبيد</a>
                         <ul class="dropdown-menu rounded-3 px-2">
-                            <li><a class="dropdown-item rounded-3 py-3" href="{{ route('event.index') }}">
+                            <li>
+                                <a class="dropdown-item rounded-3 py-3" href="{{ route('event.index') }}">
                                     <img src="{{ asset('assets/icon/events.svg') }}" class="me-3" width="20">
                                     <small class="fw-bold">فعاليات</small>
                                     <small class="float-end d-none">&#129128;</small>
-                                </a></li>
-                            <li><a class="dropdown-item rounded-3 py-3" href="{{ route('solution.index') }}">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item rounded-3 py-3" href="{{ route('solution.index') }}">
                                     <img src="{{ asset('assets/icon/solutions.svg') }}" class="me-3" width="20">
                                     <small class="fw-bold">حلول</small>
                                     <small class="float-end d-none">&#129128;</small>
-                                </a></li>
-                            <li><a class="dropdown-item rounded-3 py-3" href="{{ route('room.index') }}">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item rounded-3 py-3" href="{{ route('room.index') }}">
                                     <img src="{{ asset('assets/icon/rooms.svg') }}" class="me-3" width="20">
                                     <small class="fw-bold">غرف</small>
                                     <small class="float-end d-none">&#129128;</small>
-                                </a></li>
+                                </a>
+                            </li>
                             <li><a class="dropdown-item rounded-3 py-3" href="{{ route('job.index') }}">
                                     <img src="{{ asset('assets/icon/services-3.svg') }}" class="me-3" width="20">
                                     <small class="fw-bold">وظائف</small>
@@ -209,7 +230,7 @@
                                 </a></li>
                             <li><a class="dropdown-item rounded-3 py-3" href="{{ route('training.index') }}">
                                     <img src="{{ asset('assets/icon/training.svg') }}" class="me-3" width="20">
-                                    <small class="fw-bold">تدريب</small>
+                                    <small class="fw-bold">تدريب معتمد</small>
                                     <small class="float-end d-none">&#129128;</small>
                                 </a></li>
                             <li><a class="dropdown-item rounded-3 py-3" href="{{ route('speed_training.index') }}">
@@ -253,7 +274,15 @@
                         <a class="nav-link" href="{{ route('page.aboutCompany') }}">عن الشركة</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">English</a>
+                        @if( app()->getLocale() == 'en' )
+                            <a class="nav-link" rel="alternate" hreflang="ar" href="{{ LaravelLocalization::getLocalizedURL('ar', null, [], true) }}">
+                                {{ 'Arabic' }}
+                            </a>
+                        @else
+                            <a class="nav-link" rel="alternate" hreflang="en" href="{{ LaravelLocalization::getLocalizedURL('en', null, [], true) }}">
+                                {{ 'English' }}
+                            </a>
+                        @endif
                     </li>
                     <li class="nav-item position-relative qr-btn">
                         <a class="">
@@ -265,7 +294,7 @@
                                 <a href="#">
                                     <img class="apple img-fluid" src="{{ asset('assets/icon/app-store.svg') }}"/>
                                 </a>
-                                <a href='#'>
+                                <a href='https://play.google.com/store/games?hl=ar&gl=US'>
                                     <img class="android img-fluid" src='{{ asset('assets/icon/google-play.png') }}'/>
                                 </a>
                             </div>
@@ -319,29 +348,32 @@
                                 <p class="fw-bold">التنبيهات</p>
                             </div>
 
-                            <div class="list-group list-group-flush px-2">
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div>
-                                        <p class="mb-0 notify-text">إشعار جماعي من مدیر التطبیق</p>
-                                        <small class="text-muted">منذ ساعة</small>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="list-group list-group-flush px-2">
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div>
-                                        <p class="mb-0 notify-text">إشعار جماعي من مدیر التطبیق</p>
-                                        <small class="text-muted">منذ ساعة</small>
-                                    </div>
-                                </a>
-                            </div>
+{{--                            <div class="list-group list-group-flush px-2">--}}
+{{--                                <a href="#" class="list-group-item list-group-item-action">--}}
+{{--                                    <div>--}}
+{{--                                        <p class="mb-0 notify-text">إشعار جماعي من مدیر التطبیق</p>--}}
+{{--                                        <small class="text-muted">منذ ساعة</small>--}}
+{{--                                    </div>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                            <div class="list-group list-group-flush px-2">--}}
+{{--                                <a href="#" class="list-group-item list-group-item-action">--}}
+{{--                                    <div>--}}
+{{--                                        <p class="mb-0 notify-text">إشعار جماعي من مدیر التطبیق</p>--}}
+{{--                                        <small class="text-muted">منذ ساعة</small>--}}
+{{--                                    </div>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
                         </ul>
                     </div>
 
                     <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="d-none d-lg-flex">
                         <img src="{{ asset('assets/icon/favorite.svg') }}" alt="">
                     </a>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <a href="#" class="position-relative text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <span class="position-absolute top-0 start-100 translate-middle text-bg-primary badge rounded-circle" style="padding: 0.25em 0.50em;">
+                            {{ '0' }}
+                        </span>
                         <img src="{{ asset('assets/icon/cart_nav.svg') }}" alt="">
                     </a>
                     <button class="btn p-0 d-flex d-lg-none cursor-pointer" data-bs-toggle="offcanvas"
@@ -439,7 +471,7 @@
                                 </a></li>
                             <li><a class="dropdown-item rounded-3 py-3" href="{{ route('training.index') }}">
                                     <img src="{{ asset('assets/icon/training.svg') }}" class="me-3" width="20">
-                                    <small class="fw-bold">تدريب</small>
+                                    <small class="fw-bold">تدريب معتمد</small>
                                     <small class="float-end d-none">&#129128;</small>
                                 </a></li>
                             <li><a class="dropdown-item rounded-3 py-3" href="{{ route('speed_training.index') }}">
@@ -483,7 +515,15 @@
                         <a class="nav-link" href="{{ route('page.aboutCompany') }}">عن الشركة</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">English</a>
+                        @if( app()->getLocale() == 'en' )
+                            <a class="nav-link" rel="alternate" hreflang="ar" href="{{ LaravelLocalization::getLocalizedURL('ar', null, [], true) }}">
+                                {{ 'Arabic' }}
+                            </a>
+                        @else
+                            <a class="nav-link" rel="alternate" hreflang="en" href="{{ LaravelLocalization::getLocalizedURL('en', null, [], true) }}">
+                                {{ 'English' }}
+                            </a>
+                        @endif
                     </li>
                     <li class="nav-item position-relative qr-btn">
                         <a class="">
@@ -495,7 +535,7 @@
                                 <a href="#">
                                     <img class="apple img-fluid" src="{{ asset('assets/icon/app-store.svg') }}"/>
                                 </a>
-                                <a href='#'>
+                                <a href='https://play.google.com/store/games'>
                                     <img class="android img-fluid" src='{{ asset('assets/icon/google-play.png') }}'/>
                                 </a>
                             </div>
@@ -602,7 +642,7 @@
                     <img class="apple footer" src="{{ asset('assets/icon/app-store.svg') }}"
                          alt="Download on the App Store">
                 </a>
-                <a href='#'>
+                <a href='https://play.google.com/store/games'>
                     <img class="android footer" alt='Get it on Google Play'
                          src='{{ asset('assets/icon/google-play.png') }}'/>
                 </a>
@@ -619,12 +659,12 @@
             <div class="modal-header border-0 rounded-4">
                 <p class="modal-title">ادخل بإحدى بمنصات التواصل الاجتماعي</p>
                 <div class="d-flex">
-                    <button class="btn btn-sm btn-light rounded-3">
+                    <a href="{{ route('google.redirect') }}" class="btn btn-sm btn-light rounded-3">
                         <img src="{{ asset('assets/icon/social_google.svg') }}">
-                    </button>
-                    <button class="btn btn-sm btn-light rounded-3 ms-2">
+                    </a>
+                    <a href="{{ route('facebook.redirect') }}" class="btn btn-sm btn-light rounded-3 ms-2">
                         <img src="{{ asset('assets/icon/social_facebook.svg') }}">
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="modal-body bg-white rounded-4 py-5">
@@ -656,7 +696,114 @@
             </div>
             <div class="modal-footer flex-column border-0">
                 <p class="text-muted">في حالة عدم تذكر كلمة المرور بإمكانك</p>
-                <a class="text-white" href="#">إعادة تعيين كلمة المرور</a>
+                <a class="text-white" href="#" id="forgetBtn" data-bs-toggle="modal" data-bs-target="#forgetPasswordModal">إعادة تعيين كلمة المرور</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Forget Password Modal -->
+<div class="modal fade" id="forgetPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 gap-4 bg-transparent">
+            <div class="modal-body bg-white rounded-4 py-5">
+                <p class="main-title position-relative fw-bold mx-auto mb-1">رقم الهاتف</p>
+                <p class="sub-title-form">
+                    أدخل رقم الهاتف الخاص بحسابك
+                </p>
+                <form class="px-md-4 px-1" id="loginForm">
+                    <div class="forget-password-errors alert text-danger d-none text-center"></div>
+                    <div class="form-floating mb-3">
+                        <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                             src="{{ asset('assets/icon/phone-2.svg') }}">
+                        <input type="text" class="form-control rounded-3 ps-5" id="forgetPasswordMobile"
+                               placeholder="رقم الهاتف">
+                        <label class="ps-5" for="loginMobile">رقم الهاتف</label>
+                    </div>
+
+                    <div class="col">
+                        <button type="submit" class="btn btn-light py-2 rounded-3 w-100 forgetPasswordBtn">
+                            <span class="me-auto">التالي</span>
+                            <span class="arrow ms-2">&#129128;</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reset Passsword Modal -->
+<div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 gap-4 bg-transparent">
+            <div class="modal-body bg-white rounded-4 py-5">
+                <p class="main-title position-relative fw-bold mx-auto mb-1">كلمة المرور الجديدة</p>
+                <p class="sub-title-form">
+                    تم التأكد من رقم الهاتف ، بإمكانك الآن إعادة تعيين كلمة المرور لحسابك
+                </p>
+                <form class="px-md-4 px-1" id="loginForm">
+                    <div class="reset-errors alert text-danger d-none text-center"></div>
+
+                    <div class="form-floating mb-3">
+                        <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                             src="{{ asset('assets/icon/password.svg') }}">
+                        <input type="text" class="form-control rounded-3 ps-5" id="newPassword"
+                               placeholder="كلمة المرور">
+                        <label class="ps-5" for="loginPassword">كلمة المرور الجديدة</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                             src="{{ asset('assets/icon/password.svg') }}">
+                        <input type="text" class="form-control rounded-3 ps-5" id="repeatPassword"
+                               placeholder="كلمة المرور">
+                        <label class="ps-5" for="loginPassword">تأكيد كلمة المرور</label>
+                    </div>
+
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary py-2 rounded-3 w-100 resetPasswordBtn">
+                            <span class="me-auto">دخول</span>
+                            <span class="arrow ms-2">&#129128;</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Code Modal  -->
+<div class="modal fade" id="codeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 gap-4 bg-transparent">
+            <div class="modal-body bg-white rounded-4 py-5">
+                <p class="main-title position-relative fw-bold mx-auto mb-1">
+                    كود التحقق
+                </p>
+                <p class="sub-title-form">
+                    يرجى إدخال كود التحقق الذي تم إرساله في رسالة قصيرة لرقم الهاتف
+                </p>
+                <form class="px-md-4 px-1" id="loginForm">
+                    <div class="code-errors alert text-danger d-none text-center"></div>
+
+                    <input type="hidden" value="" name="mobile" id="codeMobile">
+
+                    <div class="form-floating mb-3">
+                        <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                             src="{{ asset('assets/icon/phone-2.svg') }}">
+                        <input type="text" class="form-control rounded-3 ps-5" id="code"
+                               placeholder="رقم الهاتف">
+                        <label class="ps-5" for="loginMobile">كود التحقق</label>
+                    </div>
+
+                    <div class="col">
+                        <button type="submit" class="btn btn-light py-2 rounded-3 w-100 codeBtn">
+                            <span class="me-auto">التالي</span>
+                            <span class="arrow ms-2">&#129128;</span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -669,12 +816,12 @@
             <div class="modal-header border-0 rounded-4">
                 <p class="modal-title">اشترك بإحدى بمنصات التواصل الاجتماعي</p>
                 <div class="d-flex">
-                    <button class="btn btn-sm btn-light rounded-3">
+                    <a href="{{ route('google.redirect') }}" class="btn btn-sm btn-light rounded-3">
                         <img src="{{ asset('assets/icon/social_google.svg') }}">
-                    </button>
-                    <button class="btn btn-sm btn-light rounded-3 ms-2">
+                    </a>
+                    <a href="{{ route('facebook.redirect') }}" class="btn btn-sm btn-light rounded-3 ms-2">
                         <img src="{{ asset('assets/icon/social_facebook.svg') }}">
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="modal-body bg-white rounded-4 py-5">
@@ -915,6 +1062,118 @@
             },
         })
     });
+
+
+    $(document).on('click', '#forgetBtn', function(e) {
+        e.preventDefault()
+
+        $('#loginModal').modal('hide');
+        $('#forgetPasswordModal').modal('show');
+    });
+
+    // Forget Password Functionality
+    $(document).on('click', '.forgetPasswordBtn', function(e) {
+        e.preventDefault()
+
+        var mobile = $('#forgetPasswordMobile').val();
+
+        $.ajax({
+            url: "{{ route('password.mobile') }}",
+            type: "GET",
+            data: {
+                mobile: mobile,
+            },
+            success: function(data) {
+                if( data.not_found ) {
+                    $('.forget-password-errors').empty()
+                    $('.forget-password-errors').removeClass('d-none')
+                    $('.forget-password-errors').html(data.not_found)
+                }else{
+
+                    $('#forgetPasswordModal').modal('hide');
+                    $('#codeModal').modal('show');
+
+                    $('#codeMobile').val(data.success);
+
+                }
+            },
+            error: function(data) {
+
+            },
+
+        })
+    });
+
+    $(document).on('click', '.codeBtn', function(e) {
+        e.preventDefault();
+
+        var mobile = $('#codeMobile').val(),
+            sms_code = $('#code').val();
+
+        $.ajax({
+            url: "{{ route('codeConfirm') }}",
+            type: "GET",
+            data: {
+                mobile: mobile,
+                sms_code: sms_code,
+            },
+            success: function(data) {
+
+                if( data.errors ) {
+                    $('.code-errors').empty()
+                    $('.code-errors').removeClass('d-none')
+                    $('.code-errors').html(data.errors)
+                }else{
+                    $('#codeModal').modal('hide');
+                    $('#resetModal').modal('show');
+                }
+
+            },
+            error: function(data) {
+
+            }
+        });
+    });
+
+    // Reset Password
+    $(document).on('click', '.resetPasswordBtn', function(e) {
+        e.preventDefault()
+
+        var password = $('#newPassword').val(),
+            mobile = $('#codeMobile').val(),
+            repeat_password = $('#repeatPassword').val();
+
+        $.ajax({
+            url: "{{ route('resetPassword') }}",
+            type: "GET",
+            data: {
+                password: password,
+                repeat_password: repeat_password,
+                mobile: mobile,
+            },
+            success: function(data) {
+                if( data.errors ) {
+                    $('.reset-errors').empty()
+                    $('.reset-errors-errors').removeClass('d-none')
+                    $('.reset-errors-errors').html(data.errors)
+                }else{
+                    location.href = "{{ route('account.index') }}"
+                }
+
+
+            },
+            error: function(data) {
+                $('.reset-errors').empty();
+                $('.reset-errors').addClass('d-none');
+                $.each(data.responseJSON.errors, function (key, value) {
+                    $('.reset-errors').removeClass('d-none');
+                    $('.reset-errors').append(`
+                            <span>` + value + `</span> <br>
+                        `)
+                });
+            }
+        })
+    })
 </script>
 @stack('js')
 </body>

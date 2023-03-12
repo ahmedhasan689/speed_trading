@@ -10,6 +10,8 @@ use App\Http\Controllers\Web\CompanyController;
 use App\Http\Controllers\Web\ContactUsController;
 use App\Http\Controllers\Web\CouponController;
 use App\Http\Controllers\Web\EventsController;
+use App\Http\Controllers\Web\FacebookController;
+use App\Http\Controllers\Web\GoogleController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\ItemController;
 use App\Http\Controllers\Web\JobsController;
@@ -25,7 +27,7 @@ use App\Http\Controllers\Web\SolutionController;
 use App\Http\Controllers\Web\SpeedForTrainingController;
 use App\Http\Controllers\Web\TrainingController;
 use Illuminate\Support\Facades\Route;
-
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -198,25 +200,35 @@ Route::name('dashboard.')
 
 });
 
-Route::namespace('\App\Http\Controllers\Web')->group(function () {
+Route::namespace('\App\Http\Controllers\Web')
+    ->prefix(LaravelLocalization::setLocale())
+    ->group(function () {
 
     // Home Page
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/page', [HomeController::class, 'page'])->name('page');
 
-//    // Social Login
-//    Route::controller(SocialLoginController::class)
-//        ->as('social_login.')
-//        ->group(function () {
-//
-//            // Facebook
-//            Route::get('/login/facebook', 'facebook')->name('facebook');
-//            Route::get('/login/facebook/callback', 'facebookCallback')->name('facebook.callback');
-//
-//            // Google
-//            Route::get('/login/google', 'google')->name('google');
-//            Route::get('/login/google/callback', 'googleCallback')->name('google.callback');
-//        });
+    // Social Login
+    Route::controller(GoogleController::class)
+        ->as('google.')
+        ->group(function () {
+
+
+            // Google
+            Route::get('/auth/google/redirect', 'googleRedirect')->name('redirect');
+            Route::get('/auth/google/callback', 'googleCallback')->name('callback');
+        });
+
+        // Social Login
+        Route::controller(FacebookController::class)
+            ->as('facebook.')
+            ->group(function () {
+
+                // Facebook
+                Route::get('/auth/facebook/redirect', 'facebookRedirect')->name('redirect');
+                Route::get('/auth/facebook/callback', 'facebookCallback')->name('callback');
+            });
+
 
     // Start Account Route
     Route::controller(AccountController::class)
@@ -326,6 +338,7 @@ Route::namespace('\App\Http\Controllers\Web')->group(function () {
         ->withoutMiddleware(['auth'])
         ->group(function() {
             Route::get('/', 'index')->name('index');
+            Route::get('/training-reservation', 'reservation')->name('reservation');
             Route::get('/{id}', 'show')->name('show');
         });
     // End Training Route

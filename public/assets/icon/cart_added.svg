@@ -1,0 +1,5 @@
+<svg id="cart_add" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <rect id="container" width="24" height="24" rx="6" fill="#0d55b1"/>
+  <path id="Path_150" data-name="Path 150" d="M5.437,13.833a1.479,1.479,0,1,0,1.479,1.479A1.477,1.477,0,0,0,5.437,13.833Zm7.4,0a1.479,1.479,0,1,0,1.479,1.479A1.477,1.477,0,0,0,12.833,13.833Zm-6.582-3.7h5.51a1.472,1.472,0,0,0,1.294-.762L15.91,4.189l-1.294-.71L11.761,8.656H6.569L3.418,2H1V3.479H2.479L5.142,9.093l-1,1.8a1.482,1.482,0,0,0,1.294,2.2h8.875V11.615H5.437Z" transform="translate(2.625 3.319)" fill="#fff"/>
+  <path id="Path_157" data-name="Path 157" d="M18.169,4.878V3.327H12.551V1H11V4.878Z" transform="translate(0.109 13.554) rotate(-45)" fill="#fff"/>
+</svg>

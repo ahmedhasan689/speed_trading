@@ -59,17 +59,17 @@ class NotificationController extends Controller
     {
 
         $tokens = Token::all()->pluck('token')->toArray();
-$users = User::where('main_role','client')->get();
-foreach ($users as $user){
-    Notification::create([
-        'type'=>'notification',
-        'title'=>$request->title,
-        'data'=>$request->message,
-        'click_action'=>'FLUTTER_NOTIFICATION_CLICK',
-        'notifiable_type'=>'App\Models\User',
-        'notifiable_id'=>$user->user_id
-    ]);
-}
+        $users = User::where('main_role','client')->get();
+        foreach ($users as $user){
+            Notification::create([
+                'type'              => 'notification',
+                'title'             => $request->title,
+                'data'              => $request->message,
+                'click_action'      => 'FLUTTER_NOTIFICATION_CLICK',
+                'notifiable_type'   => 'App\Models\User',
+                'notifiable_id'     => $user->id
+            ]);
+        }
 
         $firebase = firebase_chat_notification($request->title ?? 'title',$request->message ?? 'message',$tokens,'FLUTTER_NOTIFICATION_CLICK',[
             'title'=>$request->title ?? 'title',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\Event;
 use App\Models\Favourite;
 use App\Models\Item;
@@ -27,6 +28,8 @@ class HomeController extends Controller
         $data['solutions'] = Solution::query()->limit(4)->get();
 
         $data['events'] = Event::query()->get();
+
+        $data['cart'] = Cart::query()->where('user_id', Auth::id())->pluck('item_id')->toArray();
 
         if( $request->ajax() ) {
             return view('web.home.items_card', $data)->render();

@@ -1,5 +1,5 @@
 <x-front-layout title="Events">
-    <section>
+    <section dir="ltr">
         <div class="py-5 bg-light">
             <div class="container">
                 <div class="page-title my-5 ms-5 position-relative">

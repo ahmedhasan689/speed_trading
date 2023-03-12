@@ -32,7 +32,7 @@ class SolutionController extends Controller
     {
         $solution = Solution::query()->with('images')->with('items', function($query) {
 
-            $query->with(['brand']);
+            $query->with(['brand', 'images']);
         })->findOrFail($request->id);
 
         $separate_text = explode(PHP_EOL, $solution->getTranslation('content', 'en'));

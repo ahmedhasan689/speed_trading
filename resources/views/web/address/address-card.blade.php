@@ -83,18 +83,25 @@
                                     <input type="text" name="address" value="{{ $address->address }}" class="form-control rounded-3 ps-5 addressEdit" id="addressEdit-{{ $address->id }}" placeholder="تفاصيل العنوان">
                                     <label class="ps-5" for="addressEdit">تفاصيل العنوان</label>
                                 </div>
-                                <div class="form-floating mb-3">
-                                    <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
-                                         src="{{ asset('assets/icon/gps.svg') }}" width="25">
-                                    <input type="text" name="lan" value="{{ $address->lng }}" class="form-control rounded-3 ps-5 addressLanEdit" id="addressLanEdit-{{ $address->id }}" placeholder="تحديد الموقع">
-                                    <label class="ps-5" for="addressLanEdit">خطوط الطول</label>
-                                </div>
 
-                                <div class="form-floating mb-3">
-                                    <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
-                                         src="{{ asset('assets/icon/gps.svg') }}" width="25">
-                                    <input type="text" name="lat" value="{{ $address->lat }}" class="form-control rounded-3 ps-5" id="addressLatEdit-{{ $address->id }}" placeholder="تحديد الموقع">
-                                    <label class="ps-5" for="addressLatEdit">خطوط العرض</label>
+                                <div class="row g-2">
+                                    <div class="col-md">
+                                        <div class="form-floating mb-3">
+                                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                                                 src="{{ asset('assets/icon/gps.svg') }}" width="25">
+                                            <input type="text" class="form-control rounded-3 ps-5" id="lat-edit" value="{{ $address->lat }}" placeholder="تحديد الموقع" style="pointer-events: none">
+                                            <label class="ps-5" for="lat">Latitude</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md">
+                                        <div class="form-floating mb-3">
+                                            <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
+                                                 src="{{ asset('assets/icon/gps.svg') }}" width="25">
+                                            <input type="text" class="form-control rounded-3 ps-5" id="lng-edit" value="{{ $address->lng }}" placeholder="تحديد الموقع" style="pointer-events: none">
+                                            <label class="ps-5" for="lng">Longitude</label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-check mb-3">
                                     <input class="form-check-input" name="is_primary" type="checkbox" value="" id="addressPrimaryEdit-{{ $address->id }}" @if( $address->is_primary == 1 ) checked @endif>

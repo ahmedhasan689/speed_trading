@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Favourite;
 use App\Models\Item;
@@ -24,10 +25,13 @@ class BrandsController extends Controller
 
         $favorites = Favourite::query()->with(['user', 'favourable'])->where('user_id', Auth::id())->pluck('favourable_id')->toArray();
 
+        $cart = Cart::query()->where('user_id', Auth::id())->pluck('item_id')->toArray();
+
+
         if( $request->ajax() ) {
-            return view('web.brand.items-card', compact('brand', 'items', 'categories','favorites'))->render();
+            return view('web.brand.items-card', compact('brand', 'items', 'categories','favorites', 'cart'))->render();
         }
 
-        return view('web.brand.show', compact('brand', 'items', 'favorites', 'categories', 'brands'));
+        return view('web.brand.show', compact('brand', 'items', 'favorites', 'categories', 'brands', 'cart'));
     }
 }

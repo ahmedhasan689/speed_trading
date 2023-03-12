@@ -61,7 +61,7 @@
                             <div class="floating-file-input mb-3">
                                 <input type="file" name="company_tax_number" id="company_tax_number" class="@error('company_tax_number') is-invalid @enderror">
                                 <label for="company_tax_number" class="w-100 rounded-3">
-                                    <span style="padding-right:35px !important;">رقم البطاقة الضريبية</span>
+                                    <span style="padding-right:35px !important;">تحميل البطاقة الضريبية</span>
                                     <img class="position-absolute top-50 translate-middle-y" style="right: 3.6rem;top: 300px !important;"
                                          src="{{ asset('assets/icon/services.svg') }}">
                                 </label>
@@ -75,7 +75,7 @@
                             <div class="floating-file-input mb-3">
                                 <input type="file" name="company_commercial_record_number" id="company_commercial_record_number" class="@error('company_commercial_record_number') is-invalid @enderror">
                                 <label for="company_commercial_record_number" class="w-100 rounded-3" >
-                                    <span style="padding-right:35px !important;">رقم السجل التجاري</span>
+                                    <span style="padding-right:35px !important;">تحميل السجل التجاري</span>
                                     <img class="position-absolute top-50 translate-middle-y" style="right: 3.6rem;top: 228px !important;"
                                          src="{{ asset('assets/icon/document.svg') }}">
                                 </label>

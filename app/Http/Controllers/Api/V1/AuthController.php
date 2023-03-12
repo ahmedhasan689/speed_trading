@@ -135,7 +135,6 @@ class AuthController extends Controller
 
     public function forgetPassword(ForgetPasswordRequest $request)
     {
-
         $user = User::where('mobile',request('mobile'))->first();
         if (is_null($user)) {
             return $this->notFoundApiResponse([],__('User not found'));
@@ -145,7 +144,6 @@ class AuthController extends Controller
         $user->save();
         twilioSMS($user->mobile,'Your activation code is : '.$user->sms_code);
         return $this->okApiResponse(['sms_code' => $user->sms_code],__("Check your mobile"));
-
     }
 
     public function codeConfirmSMS(CodeConfirmRequest $request)

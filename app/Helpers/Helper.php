@@ -137,7 +137,9 @@ function saveImage($file, $folder = '/')
 {
     request()->files->remove('link');
 
-    $fileName = time() . rand(10,99).$file->getClientOriginalName();
+//    dd( request()->files );
+
+    $fileName = time() . rand(10,99). $file->getClientOriginalName();
     $dest = public_path('/uploads/' . $folder);
     $file->move($dest, $fileName);
 
