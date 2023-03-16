@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ItemRequest;
+use App\Models\Category;
 use App\Models\Favourite;
 use App\Models\Item;
 use App\Models\ItemImage;
 use App\Models\ItemSolution;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -159,5 +161,18 @@ class ItemController extends Controller
         $item->delete();
         toast(__('Deleted successfully'),'success');
         return redirect()->back();
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getCategory(Request $request)
+    {
+        $categories = Category::where('upper_id', $request->id)->get();
+
+        return response()->json([
+            'categories' => $categories,
+        ]);
     }
 }

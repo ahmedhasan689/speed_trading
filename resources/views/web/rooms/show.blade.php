@@ -2,9 +2,25 @@
     <section class="my-5">
         <div class="container">
             <div class="d-flex flex-column flex-lg-row gap-5">
-                <div class="w-100 mb-5">
-                    <div class="ratio ratio-1x1">
-                        <img src="{{ asset('') . $room->image }}" class=" rounded-4">
+                <div class="swiper-container mb-5 m-auto">
+                    <div class="swiper mySwiper2">
+                        <div class="swiper-wrapper">
+                            @foreach( $room->images as $s_image )
+                                <div class="swiper-slide">
+                                    <img src="{{ asset('') . $s_image->url }}" />
+                                </div>
+                            @endforeach
+
+                        </div>
+                    </div>
+                    <div thumbsSlider="" class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            @foreach( $room->images as $d_image )
+                                <div class="swiper-slide">
+                                    <img src="{{ asset('') . $d_image->url }}"/>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
 

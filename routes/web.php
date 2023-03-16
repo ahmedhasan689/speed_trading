@@ -54,7 +54,7 @@ Route::patch('/fcm-token', [\App\Http\Controllers\HomeController::class, 'update
 Route::name('dashboard.')
     ->namespace('App\Http\Controllers\Dashboard')
     ->middleware(['language', 'auth', 'prevent.dashboard'])
-    ->prefix('dashboard')->group(function () {
+    ->prefix('dashboard')->group(callback: function () {
 
     Route::get('/', function () {
         return redirect(route('dashboard.home'));
@@ -141,6 +141,7 @@ Route::name('dashboard.')
     Route::get('order-cancelled/{id}','OrderController@cancelled')->name('order-cancelled');
 
     Route::resource('sliders', 'SliderController');
+    Route::get('/get-subcategory', action: [\App\Http\Controllers\Dashboard\ItemController::class, 'getCategory'])->name('item.getSubcategory');
     Route::resource('items', 'ItemController');
     Route::resource('item-images', 'ItemImageController');
     Route::resource('promocodes', 'PromocodeController');

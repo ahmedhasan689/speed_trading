@@ -70,8 +70,8 @@
 
 <div class="form-group py-1 col-md-6">
     <label for="category_id"> {{__('Sub category')}}  {!! label_required() !!}</label>
-    {{Form::select('category_id',[] ,null,['placeholder'=>__('Select sub category'),'class'=>'form-control mb-2','id'=>'category_id',disable_on_show()])}}
-    {{input_error($errors,'category_id')}}
+    {{ Form::select('category_id', [],null,['placeholder'=>__('Select sub category'),'class'=>'form-control mb-2','id'=>'category_id',disable_on_show()]) }}
+    {{ input_error($errors,'category_id') }}
 </div>
 
 
@@ -112,47 +112,6 @@
 <hr>
 
 <div class="clearfix"></div>
-{{--<div class="col-md-12">--}}
-{{--<h3>{{__('Compare section ')}}</h3>--}}
-{{--</div>--}}
-{{--    <br>--}}
-{{--<div class="clearfix"></div>--}}
-{{--<div class="form-group py-1 col-md-6">--}}
-{{--    <label for="formInputRole"> {{__('Image resolution')}}</label>--}}
-{{--    <br>--}}
-{{--    {!! Form::text('image_resolution',null,['class'=>'form-control col',disable_on_show()]) !!}--}}
-{{--    {{input_error($errors,'image_resolution')}}--}}
-{{--</div>--}}
-{{--<div class="form-group py-1 col-md-6">--}}
-{{--    <label for="formInputRole"> {{__('Lens resolution')}}</label>--}}
-{{--    <br>--}}
-{{--    {!! Form::text('lens_resolution',null,['class'=>'form-control col',disable_on_show()]) !!}--}}
-{{--    {{input_error($errors,'lens_resolution')}}--}}
-{{--</div>--}}
-{{--<div class="form-group py-1 col-md-6">--}}
-{{--    <label for="formInputRole"> {{__('Movement')}}</label>--}}
-{{--    <br>--}}
-{{--    {!! Form::text('movement',null,['class'=>'form-control col',disable_on_show()]) !!}--}}
-{{--    {{input_error($errors,'movement')}}--}}
-{{--</div>--}}
-{{--<div class="form-group py-1 col-md-6">--}}
-{{--    <label for="formInputRole"> {{__('Night capturing')}}</label>--}}
-{{--    <br>--}}
-{{--    {!! Form::text('night_capturing',null,['class'=>'form-control col',disable_on_show()]) !!}--}}
-{{--    {{input_error($errors,'night_capturing')}}--}}
-{{--</div>--}}
-{{--<div class="form-group py-1 col-md-6">--}}
-{{--    <label for="formInputRole"> {{__('Recording mode')}}</label>--}}
-{{--    <br>--}}
-{{--    {!! Form::text('recording_mode',null,['class'=>'form-control col',disable_on_show()]) !!}--}}
-{{--    {{input_error($errors,'recording_mode')}}--}}
-{{--</div>--}}
-{{--<div class="form-group py-1 col-md-6">--}}
-{{--    <label for="formInputRole"> {{__('Internal storage')}}</label>--}}
-{{--    <br>--}}
-{{--    {!! Form::text('internal_storage',null,['class'=>'form-control col',disable_on_show()]) !!}--}}
-{{--    {{input_error($errors,'internal_storage')}}--}}
-{{--</div>--}}
 
 @section('footer')
     <script>
@@ -174,5 +133,32 @@
             }
         };
 
+    </script>
+
+    <script>
+        $(document).on('change', '#main_category_id', function(e) {
+
+            var id = $(this).val();
+
+            $.ajax({
+                url: "{{ url('/dashboard/get-subcategory') }}",
+                type: 'GET',
+                data: {
+                    id: id,
+                },
+                success: function(data) {
+                    $('#category_id').empty();
+
+                    $.each(data.categories, function(key,value) {
+                        $('#category_id').append(`
+                            <option value="`+ value.id +`">`+ value.name['en'] +`</option>
+                        `)
+                    });
+                },
+                error: function(data) {
+                    console.log(data)
+                }
+            })
+        });
     </script>
 @endsection

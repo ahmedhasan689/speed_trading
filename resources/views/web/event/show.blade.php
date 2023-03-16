@@ -3,12 +3,36 @@
     <section class="my-5">
         <div class="container">
             <div class="d-flex flex-column flex-lg-row gap-5">
-                <div class="w-100 mb-5">
-                    <div class="ratio ratio-1x1">
-                        <img src="{{ asset($event->image) }}" class=" rounded-4">
+                <div class="swiper-container mb-5 m-auto">
+                    <div class="swiper mySwiper2">
+                        <div class="swiper-wrapper">
+                            @foreach( $event->images as $s_image )
+                                <div class="swiper-slide">
+                                    @if( $s_image->type == 'image' )
+                                        <img src="{{ asset('') . $s_image->url }}" />
+                                    @elseif( $s_image->type == 'video' )
+                                        <iframe src="{{ asset('') . $s_image->url }}" class="rounded-4" title="YouTube video" allowfullscreen></iframe>
+                                    @endif
+                                </div>
+                            @endforeach
+
+                        </div>
+                    </div>
+                    <div thumbsSlider="" class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            @foreach( $event->images as $d_image )
+                                <div class="swiper-slide">
+                                    @if( $d_image->type == 'image' )
+                                        <img src="{{ asset('') . $d_image->url }}" />
+                                    @elseif( $d_image->type == 'video' )
+                                        <iframe src="{{ asset('') . $d_image->url }}" class="rounded-4" title="YouTube video" allowfullscreen></iframe>
+                                    @endif
+                                </div>
+                            @endforeach
+
+                        </div>
                     </div>
                 </div>
-
                 <div class="w-100">
                     <h5 class="fw-bold">
                         {{ $event->getTranslation('title', app()->getLocale()) }}
