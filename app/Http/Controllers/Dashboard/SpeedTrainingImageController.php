@@ -56,7 +56,7 @@ class SpeedTrainingImageController extends Controller
     public function create()
     {
 
-        $image=new SpeedTrainingImage();
+        $image = new SpeedTrainingImage();
         return view('dashboard.speed-training-images.create',compact('image'));
     }
 

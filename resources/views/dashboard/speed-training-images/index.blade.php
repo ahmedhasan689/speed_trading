@@ -9,7 +9,7 @@
     ])
 @endsection
 @section('btn')
-    @include('dashboard.layouts.partials._add_icon',['route'=>'speed-training-images','id'=>request()->speed_training_id,'name'=>__('Add new image')])
+    @include('dashboard.layouts.partials._add_icon',['route'=>'speed-training-images','id'=>request()->training_id,'name'=>__('Add new image')])
 @endsection
 @section('content')
     <section id="column-selectors">

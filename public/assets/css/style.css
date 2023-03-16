@@ -628,7 +628,6 @@ span.badge.p-2.rounded-3.text-main-color {
 }
 
 .swiper-slide img {
-  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;

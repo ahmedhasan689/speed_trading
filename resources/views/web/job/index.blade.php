@@ -86,6 +86,29 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
+
+                                        <div class="row g-2">
+                                            <div class="col-md">
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" name="age" class="form-control rounded-3 ps-5 @error('age') is-invalid @enderror" id="floatingInput" placeholder="العمر">
+                                                    <label class="ps-5" for="floatingInput">العمر</label>
+                                                    @error('age')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md">
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" name="degree" class="form-control rounded-3 ps-5 @error('degree') is-invalid @enderror" id="floatingInput" placeholder="الدرجة العلمية">
+                                                    <label class="ps-5" for="floatingInput">الدرجة العلمية</label>
+                                                    @error('degree')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="form-floating mb-3">
                                             <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
                                                  src="{{ asset('assets/icon/phone-2.svg') }}" width="25">
@@ -107,22 +130,22 @@
                                         <div class="row g-2">
                                             <div class="col-md">
                                                 <div class="form-floating mb-3">
-                                                    <select name="city_id" class="form-select" id="floatingSelectGrid">
-                                                        <option selected>المدينة</option>
-                                                        @foreach( $cities as $city )
-                                                            <option value="{{ $city->id }}">{{ $city->getTranslation('name', app()->getLocale()) }}</option>
+                                                    <select name="governorate_id" class="form-select addressGovernorateCreate" id="floatingSelectGrid">
+                                                        <option selected>المحافظة</option>
+                                                        @foreach( $governorates as $governorate )
+                                                            <option value="{{ $governorate->id }}">{{ $governorate->getTranslation('name', app()->getLocale()) }}</option>
                                                         @endforeach
                                                     </select>
-                                                    <label for="floatingSelectGrid">المدينة</label>
+                                                    <label for="floatingSelectGrid">المحافظة</label>
                                                 </div>
                                             </div>
                                             <div class="col-md">
                                                 <div class="form-floating mb-3">
-                                                    <input type="text" name="age" class="form-control rounded-3 ps-5 @error('age') is-invalid @enderror" id="floatingInput" placeholder="العمر">
-                                                    <label class="ps-5" for="floatingInput">العمر</label>
-                                                    @error('age')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
+                                                    <select name="city_id" class="form-select addressCity" id="floatingSelectGrid" disabled>
+                                                        <option selected>المدينة</option>
+
+                                                    </select>
+                                                    <label for="floatingSelectGrid">المدينة</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -194,7 +217,7 @@
                                 <div class="w-100">
                                     <h6 class="fw-bold mb-4">
                                     <img src="{{ asset('assets/icon/symbol_r.svg') }}" class="me-3" width="25">التقدم للوظيفة</h6>
-                                    <form action="{{ route('job.store') }}" method="POST" class="px-md-4 px-1">
+                                    <form action="{{ route('job.store') }}" method="POST" class="px-md-4 px-1" enctype="multipart/form-data">
                                         @csrf
 
                                         <input type="hidden" value="`+  data.job.id +`" name="job_id">
@@ -207,6 +230,31 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
+
+                                         <div class="row g-2">
+                                            <div class="col-md">
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" name="age" class="form-control rounded-3 ps-5 @error('age') is-invalid @enderror" id="floatingInput" placeholder="العمر">
+                                                    <label class="ps-5" for="floatingInput">العمر</label>
+                                                    @error('age')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md">
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" name="degree" class="form-control rounded-3 ps-5 @error('degree') is-invalid @enderror" id="floatingInput" placeholder="الدرجة العلمية">
+                                                    <label class="ps-5" for="floatingInput">الدرجة العلمية</label>
+                                                    @error('degree')
+                                                        <span class="text-danger">
+                                                            {{ $message }}
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="form-floating mb-3">
                                             <img class="position-absolute top-50 translate-middle-y" style="right: 0.6rem"
                                                  src="{{ asset('assets/icon/phone-2.svg') }}" width="25">
@@ -228,22 +276,22 @@
                                         <div class="row g-2">
                                             <div class="col-md">
                                                 <div class="form-floating mb-3">
-                                                    <select name="city_id" class="form-select" id="floatingSelectGrid">
-                                                        <option selected>المدينة</option>
-                                                        @foreach( $cities as $city )
-                                                            <option value="{{ $city->id }}">{{ $city->getTranslation('name', app()->getLocale()) }}</option>
+                                                    <select name="governorate_id" class="form-select addressGovernorateCreate" id="floatingSelectGrid">
+                                                        <option selected>المحافظة</option>
+                                                        @foreach( $governorates as $governorate )
+                                                            <option value="{{ $governorate->id }}">{{ $governorate->getTranslation('name', app()->getLocale()) }}</option>
                                                         @endforeach
                                                     </select>
-                                                    <label for="floatingSelectGrid">المدينة</label>
+                                                    <label for="floatingSelectGrid">المحافظة</label>
                                                 </div>
                                             </div>
                                             <div class="col-md">
                                                 <div class="form-floating mb-3">
-                                                    <input type="text" name="age" class="form-control rounded-3 ps-5 @error('age') is-invalid @enderror" id="floatingInput" placeholder="العمر">
-                                                    <label class="ps-5" for="floatingInput">العمر</label>
-                                                    @error('age')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
+                                                    <select name="city_id" class="form-select addressCity" id="floatingSelectGrid" disabled>
+                                                        <option selected>المدينة</option>
+
+                                                    </select>
+                                                    <label for="floatingSelectGrid">المدينة</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -285,6 +333,40 @@
 
             $("#cvFile").change(function(){
                 $("#file-name").text(this.files[0].name);
+            });
+        </script>
+
+        <script>
+            $(document).on('change', '.addressGovernorateCreate', function(e) {
+                e.preventDefault();
+
+                var id = $('.addressGovernorateCreate').val();
+
+                $.ajax({
+                    url: "{{ route('address.getCity') }}",
+                    type: "GET",
+                    data: {
+                        id: id,
+                    },
+                    success: function(data) {
+                        if( data.cities ) {
+                            $('.addressCity').attr('disabled', false)
+                            $('.addressCity').empty();
+                            $('.addressCity').append(`
+                                    <option value="">المدينة</option>
+                                `)
+                            $.each(data.cities, function(key, value) {
+                                $('.addressCity').append(`
+                                    <option value="`+value.id+`">`+value.name.en+`</option>
+                                `)
+                            })
+                        };
+                    },
+                    error: function(data) {
+
+                    },
+
+                })
             });
         </script>
     @endpush

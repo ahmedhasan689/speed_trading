@@ -43,8 +43,8 @@
                         <h6 class="fw-bold text-color mb-3">نوع الجهاز</h6>
                         <select id="type-select" class="form-select p-2 categoryName">
                             <option selected>كاميرات</option>
-                            @foreach( $categories as $category )
-                                <option value="{{ $category->id }}" data-img_src="../icon/marka-1.png">
+                            @foreach( $sub_categories as $category )
+                                <option value="{{ $category->id }}">
                                     {{ $category->getTranslation('name', app()->getLocale()) }}
                                 </option>
                             @endforeach

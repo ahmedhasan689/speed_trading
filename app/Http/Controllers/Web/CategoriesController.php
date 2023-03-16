@@ -20,6 +20,7 @@ class CategoriesController extends Controller
         $categories = Category::query()->where('upper_id', null)->get();
         $brands = Brand::query()->get();
 
+        $sub_categories = Category::query()->where('upper_id', $category->id)->get();
 
         $items = Item::query()->tableFilters()->with(['images', 'brand'])->whereHas('category', function($query) use ($category) {
             $query->whereIn('id', $category->subs->pluck('id'));
@@ -30,10 +31,10 @@ class CategoriesController extends Controller
         $cart = Cart::query()->where('user_id', Auth::id())->pluck('item_id')->toArray();
 
         if( $request->ajax() ) {
-            return view('web.category.items-card', compact('category', 'categories', 'items', 'favorites', 'cart'))->render();
+            return view('web.category.items-card', compact('category', 'categories', 'sub_categories', 'items', 'favorites', 'cart'))->render();
         }
 
-        return view('web.category.show', compact('category', 'items', 'favorites', 'categories', 'brands', 'cart'));
+        return view('web.category.show', compact('category', 'items', 'sub_categories' ,'favorites', 'categories', 'brands', 'cart'));
 
     }
 }

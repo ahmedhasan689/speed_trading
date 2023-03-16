@@ -18,7 +18,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
-                            {!! Form::open(['method'=>'post','route'=>'dashboard.trainings.store','class'=>'form','enctype' => 'multipart/form-data']) !!}
+                            {!! Form::open(['method'=>'post','route'=>'dashboard.speed-trainings.store','class'=>'form','enctype' => 'multipart/form-data']) !!}
                             @csrf()
                             <div class="row">
                                 @include('dashboard.trainings.partials._store_form')

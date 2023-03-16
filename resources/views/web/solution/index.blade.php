@@ -88,14 +88,15 @@
                         )
 
                         $('.swiper-wrapper').empty();
+                        console.log( data.solution.images )
                         $.each(data.solution.images, function(key, value) {
 
                             $('.swiper-wrapper').append(`
-                                    <div class="swiper-slide">
-                                        <div class="ratio ratio-21x9">
-                                        <img src="{{ asset('/') }}`+ value.url +`" alt="" class="rounded-3">
-                                    </div>
-                                `);
+                                <div class="swiper-slide">
+                                    <div class="ratio ratio-21x9">
+                                    <img src="{{ asset('/') }}`+ value.url +`" alt="" class="rounded-3">
+                                </div>
+                            `);
                         });
 
                         $('.item-card').empty();

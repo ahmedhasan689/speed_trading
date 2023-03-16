@@ -21,7 +21,7 @@
                             {!! Form::open(['method'=>'post','route'=>'dashboard.training-images.store','class'=>'form','enctype' => 'multipart/form-data']) !!}
                             @csrf()
                             <div class="row">
-                                <input type="hidden" name="training_id" value="{{request()->id}}">
+                                <input type="hidden" name="training_id" value="{{ request()->id }}">
                                 @include('dashboard.training-images.partials._form')
                                 @component('dashboard.layouts.partials.buttons._save_button',[])
                                 @endcomponent

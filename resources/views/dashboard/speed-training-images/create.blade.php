@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
     @include('dashboard.layouts.partials._breadcrumb',[
-    'route'=>route('dashboard.training-images.index',request()->training_id),
+    'route'=>route('dashboard.training-images.index',request()->id),
     'level'=>'images'
     ])
 @endsection
@@ -21,7 +21,7 @@
                             {!! Form::open(['method'=>'post','route'=>'dashboard.speed-training-images.store','class'=>'form','enctype' => 'multipart/form-data']) !!}
                             @csrf()
                             <div class="row">
-                                <input type="hidden" name="training_id" value="{{request()->id}}">
+                                <input type="hidden" name="speed_training_id" value="{{ request()->id }}">
                                 @include('dashboard.speed-training-images.partials._form')
                                 @component('dashboard.layouts.partials.buttons._save_button',[])
                                 @endcomponent

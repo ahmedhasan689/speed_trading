@@ -28,15 +28,15 @@
 <script src="{{asset('assets/dashboard/resources')}}/app-assets/js/scripts/forms/select/form-select2.js"></script>
 
 <!-- END: Theme JS-->
+<script src="{{asset('assets/dashboard/resources')}}/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>
 
 <!-- BEGIN: Page JS-->
 @if(app()->getLocale() == 'ar')
-<script src="{{asset('assets/dashboard/resources')}}/app-assets/js/scripts/datatables/datatable-ar.js"></script>
+    <script src="{{asset('assets/dashboard/resources')}}/app-assets/js/scripts/datatables/datatable-ar.js"></script>
 @else
     <script src="{{asset('assets/dashboard/resources')}}/app-assets/js/scripts/datatables/datatable.js"></script>
 
 @endif
-<script src="{{asset('assets/dashboard/resources')}}/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>
 <!-- END: Page JS-->
 
 <!-- CK Editor -->

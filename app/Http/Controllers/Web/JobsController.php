@@ -15,9 +15,11 @@ class JobsController extends Controller
         $jobs = Job::query()->get();
         $cities = City::query()->get();
 
+        $governorates = City::with('cities')->whereNull('upper_id')->get();
 
 
-        return view('web.job.index', compact('jobs', 'cities'));
+
+        return view('web.job.index', compact('jobs', 'governorates'));
     }
 
     public function store(Request $request)
@@ -28,6 +30,7 @@ class JobsController extends Controller
             'email' => 'required|email',
             'age' => 'required|numeric',
             'city_id' => 'required|exists:cities,id',
+            'degree' => 'required',
             'cv' => 'required',
         ]);
 

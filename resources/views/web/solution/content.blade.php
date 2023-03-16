@@ -28,9 +28,11 @@
     <h6 class="fw-bold">
         {{ $separate_text[0] }}
     </h6>
-    <p class="fs-6">
-        {{ $separate_text[1] }}
-    </p>
+    @if ( isset($separate_text[1]) )
+        <p class="fs-6">
+            {{ $separate_text[1] }}
+        </p>
+    @endif
 </div>
 <hr class="border">
 
